@@ -4,15 +4,15 @@ const connectDb = async () => {
   try {
     // so something here
     const cloudUri =
-      "mongodb+srv://irfanusuf33:robolox@robolox.xnj0z.mongodb.net/InterServer?retryWrites=true&w=majority&appName=robolox";
+      "mongodb+srv://irfanusuf33:robolox@robolox.xnj0z.mongodb.net/Dbname?retryWrites=true&w=majority&appName=robolox";
 
-    // const localUri  ="mongodb://localhost:27017/IntereServer"
+    // const localUri  ="mongodb://localhost:27017/InterServer"
 
     await mongoose.connect(cloudUri);
 
     console.log("Db Connected!");
+
   } catch (error) {
-    //
     console.log(error);
   }
 };
