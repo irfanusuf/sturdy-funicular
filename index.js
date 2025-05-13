@@ -1,5 +1,5 @@
 const express = require("express")    // importing express from node modules 
-const { registerController, loginController } = require("./controllers/userController")
+const { registerController, loginController, forgotPassController } = require("./controllers/userController")
 const { connectDb } = require("./config/connectDb")
 
 
@@ -20,9 +20,8 @@ app.get("/index" , (req,res)=>{res.status(201).json({message : "Api Successfull"
 // post requests which accepts request object 
 
 app.post("/register" ,  registerController)
-
-
 app.post("/login" , loginController )
+app.get("/forgot/Password/:email"  , forgotPassController )  // papad belne pade ge 
 
 
 

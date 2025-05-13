@@ -1,5 +1,8 @@
 const { User } = require("../models/userModel");
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken")
+
+
 
 const registerController = async (req, res) => {
   try {
@@ -18,7 +21,6 @@ const registerController = async (req, res) => {
         success: false,
       });
     }
-
     const existingUser = await User.findOne({ email });
 
     if (existingUser) {
@@ -54,12 +56,6 @@ const registerController = async (req, res) => {
 };
 
 
-
-
-
-
-
-
 const loginController = async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -79,7 +75,21 @@ const loginController = async (req, res) => {
     const verifyPass = await bcrypt.compare(password, existingUser.password);
 
     if (verifyPass) {
-      return res.status(200).json({ message: "Login in succesfull!" });
+
+
+
+      // session management 
+
+      const secretKey = "kfhusdgbjtfdsafbvmbxvreiytiewiqdpofwcmlxanxcz.xzmcx"
+
+      const token =  await jwt.sign({userId : existingUser._id , username : existingUser.username} , secretKey  )
+
+
+
+      return res.status(200).json({ message: "Login in succesfull!" , authorization_token :  token });
+
+
+
     } else {
       return res.status(400).json({ message: "Password incorrect!" });
     }
@@ -89,7 +99,24 @@ const loginController = async (req, res) => {
   }
 };
 
+
+const forgotPassController = async(req,res) =>{
+
+ try {
+  // try to write logic here 
+ } catch (error) {
+  console.log(error)
+ }
+
+
+
+}
+
+
+
+
 module.exports = {
   registerController,
   loginController,
+  forgotPassController
 };
