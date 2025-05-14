@@ -1,8 +1,7 @@
 const { User } = require("../models/userModel");
 const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken")
-
-
+const jwt = require("jsonwebtoken");
+const { transport } = require("../utilities/nodeMailer");
 
 const registerController = async (req, res) => {
   try {
@@ -30,8 +29,7 @@ const registerController = async (req, res) => {
       });
     }
 
-    const encryptPassWord = await bcrypt.hash(password, 12); // syntatic sugar 
-
+    const encryptPassWord = await bcrypt.hash(password, 12); // syntatic sugar
 
     const newUser = await User.create({
       username,
@@ -55,7 +53,6 @@ const registerController = async (req, res) => {
   }
 };
 
-
 const loginController = async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -75,21 +72,18 @@ const loginController = async (req, res) => {
     const verifyPass = await bcrypt.compare(password, existingUser.password);
 
     if (verifyPass) {
+      // session management
 
+      const secretKey = "kfhusdgbjtfdsafbvmbxvreiytiewiqdpofwcmlxanxcz.xzmcx";
 
+      const token = await jwt.sign(
+        { userId: existingUser._id, username: existingUser.username },
+        secretKey
+      );
 
-      // session management 
-
-      const secretKey = "kfhusdgbjtfdsafbvmbxvreiytiewiqdpofwcmlxanxcz.xzmcx"
-
-      const token =  await jwt.sign({userId : existingUser._id , username : existingUser.username} , secretKey  )
-
-
-
-      return res.status(200).json({ message: "Login in succesfull!" , authorization_token :  token });
-
-
-
+      return res
+        .status(200)
+        .json({ message: "Login in succesfull!", authorization_token: token });
     } else {
       return res.status(400).json({ message: "Password incorrect!" });
     }
@@ -99,24 +93,63 @@ const loginController = async (req, res) => {
   }
 };
 
+const forgotPassController = async (req, res) => {
+  try {
+    // try to write logic here
 
-const forgotPassController = async(req,res) =>{
+    // find user by its email
 
- try {
-  // try to write logic here 
- } catch (error) {
-  console.log(error)
- }
+    const { email } = req.query;
 
-
-
-}
+    console.log(email)
 
 
+    if(email === "" || email === undefined){
 
+      return res.status(400).json({ message: "Email Not Found!" });
+    }
+
+    const findUser = await User.findOne({ email });
+
+    if (!findUser) {
+      return res.status(400).json({ message: "User Not Found!" });
+    }
+
+    var mailOptions = {
+      from: "contact@australasia-apparels.shop",
+      to: email,
+      subject: "Forgot Password Link ",
+      text: "link begne hai ",
+    };
+
+    const sendMail = await transport.sendMail(mailOptions);
+
+    if (sendMail.accepted) {
+      return res
+        .status(200)
+        .json({
+          message: "An Email is sent to your  mail with password reset link !",
+        });
+    } else {
+      return res
+        .status(500)
+        .json({
+          message: "Something Went Wrong , kindly try again after sometime !",
+        });
+    }
+
+  } catch (error) {
+    console.log(error);
+    return res
+    .status(500)
+    .json({
+      message: "Something Went Wrong , kindly try again after sometime !",
+    });
+  }
+};
 
 module.exports = {
   registerController,
   loginController,
-  forgotPassController
+  forgotPassController,
 };

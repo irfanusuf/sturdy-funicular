@@ -21,7 +21,7 @@ app.get("/index" , (req,res)=>{res.status(201).json({message : "Api Successfull"
 
 app.post("/register" ,  registerController)
 app.post("/login" , loginController )
-app.get("/forgot/Password/:email"  , forgotPassController )  // papad belne pade ge 
+app.get("/forgot/Password"  , forgotPassController ) 
 
 
 
