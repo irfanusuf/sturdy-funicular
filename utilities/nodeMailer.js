@@ -1,21 +1,16 @@
-const nodemailer = require ("nodemailer")
-
-
-
+const nodemailer = require("nodemailer");
 
 const transport = nodemailer.createTransport({
+  host: "mail322.mailasp.net",
+  port: 587,
+  secure: false, 
+  auth: {
+    user: "postmaster@australasia-apparels.shop",
+    pass: "8Nb_h2!BK@p3",
+  },
+//   tls: {
+//     rejectUnauthorized: false //
+//   }
+});
 
-service : "mail322.mailasp.net",
-auth : {
-
-    user : "contact@australasia-apparels.shop",
-    pass : "8Nb_h2!BK@p3"    // app password 
-},
-port: 587
-
-
-})
-
-
-
-module.exports = {transport}
+module.exports = { transport };
