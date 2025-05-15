@@ -101,11 +101,9 @@ const forgotPassController = async (req, res) => {
 
     const { email } = req.query;
 
-    console.log(email)
+    console.log(email);
 
-
-    if(email === "" || email === undefined){
-
+    if (email === "" || email === undefined) {
       return res.status(400).json({ message: "Email Not Found!" });
     }
 
@@ -125,24 +123,61 @@ const forgotPassController = async (req, res) => {
     const sendMail = await transport.sendMail(mailOptions);
 
     if (sendMail.accepted) {
-      return res
-        .status(200)
-        .json({
-          message: "An Email is sent to your  mail with password reset link !",
-        });
+      return res.status(200).json({
+        message: "An Email is sent to your  mail with password reset link !",
+      });
     } else {
-      return res
-        .status(500)
-        .json({
-          message: "Something Went Wrong , kindly try again after sometime !",
-        });
+      return res.status(500).json({
+        message: "Something Went Wrong , kindly try again after sometime !",
+      });
     }
-
   } catch (error) {
     console.log(error);
-    return res
-    .status(500)
-    .json({
+    return res.status(500).json({
+      message: "Something Went Wrong , kindly try again after sometime !",
+    });
+  }
+};
+
+const changePassController = async (req, res) => {
+  try {
+    const { password, confirmPass } = req.body;
+
+    const { userId } = req.query;
+
+    if (userId === "" || userId === undefined) {
+      return res.status(400).json({ message: "userId Not Found!" });
+    }
+
+    let user = await User.findById(userId);
+
+    if (!user) {
+      return res.status(400).json({ message: "User Not Found!" });
+    }
+
+    if (password === "" || confirmPass === "" || confirmPass !== password) {
+      return res
+        .status(400)
+        .json({ message: "Both feilds Required | Passwords doesnot Match!" });
+    }
+
+    const encryptPassWord = await bcrypt.hash(password, 12);
+
+    user.password = encryptPassWord;
+    const updatePass = await user.save();
+
+    if (updatePass) {
+      return res.status(200).json({
+        message: "Password Changed Succesfully!",
+      });
+    } else {
+      return res.status(500).json({
+        message: "Something Went Wrong , kindly try again after sometime !",
+      });
+    }
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({
       message: "Something Went Wrong , kindly try again after sometime !",
     });
   }
@@ -152,4 +187,5 @@ module.exports = {
   registerController,
   loginController,
   forgotPassController,
+  changePassController,
 };
