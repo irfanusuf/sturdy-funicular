@@ -1,5 +1,5 @@
 const express = require("express")    // importing express from node modules 
-const { registerController, loginController, forgotPassController, changePassController } = require("./controllers/userController")
+const { registerController, loginController, forgotPassController, changePassController, changeUsernameController } = require("./controllers/userController")
 const { connectDb } = require("./config/connectDb")
 
 
@@ -23,6 +23,8 @@ app.post("/register" ,  registerController)
 app.post("/login" , loginController )
 app.get("/forgot/Password"  , forgotPassController ) 
 app.post ("/change/password" , changePassController)
+
+app.post("/edit/user",changeUsernameController)
 
 
 
