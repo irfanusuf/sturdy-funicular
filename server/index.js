@@ -23,10 +23,7 @@ app.post("/register" ,  registerController)
 app.post("/login" , loginController )
 app.get("/forgot/Password"  , forgotPassController ) 
 app.post ("/change/password" , changePassController)
-
 app.post("/edit/user",changeUsernameController)
-
-
 
 
 app.listen(port , ()=>{console.log(`Server listening on port ${port}`)} )
