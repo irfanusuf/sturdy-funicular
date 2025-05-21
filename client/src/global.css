@@ -45,3 +45,14 @@ body {
     align-items: center;
     min-height: 10vh;
 }
+
+
+.register_container{
+
+
+
+  border-radius: 8px;
+  box-shadow: 2px 2px 10px 10px rgba(0, 128, 0, 0.135);
+
+
+}

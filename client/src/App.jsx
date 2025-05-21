@@ -10,6 +10,7 @@ import NoPageFound from "./components/pages/NoPageFound";
 import Services from "./components/pages/Services";
 import Login from "./components/pages/Login";
 import Register from "./components/pages/Register";
+import { ToastContainer } from "react-toastify";
 
 const App = () => {
   const [username, setUsername] = useState("javeed");
@@ -28,6 +29,10 @@ const App = () => {
     // jsx fragment
     <>
       <BrowserRouter>
+
+      <ToastContainer position="bottom-left"/>
+
+
         <Navbar />
 
         {/* page mount and dismount */}
