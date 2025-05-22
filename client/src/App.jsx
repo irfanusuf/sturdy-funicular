@@ -11,6 +11,7 @@ import Services from "./components/pages/Services";
 import Login from "./components/pages/Login";
 import Register from "./components/pages/Register";
 import { ToastContainer } from "react-toastify";
+import Dashboard from "./components/pages/Dashboard";
 
 const App = () => {
   const [username, setUsername] = useState("javeed");
@@ -46,6 +47,7 @@ const App = () => {
             <Route path="/services" element={<Services />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
+            <Route path="/user/dashboard" element={<Dashboard />} />
           </Routes>
         </div>
 
