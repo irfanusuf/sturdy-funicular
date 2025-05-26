@@ -78,12 +78,14 @@ const loginController = async (req, res) => {
 
       const token = await jwt.sign(
         { userId: existingUser._id, username: existingUser.username },
-        secretKey
+        secretKey,
+        {expiresIn : "24h"}
       );
 
       return res
         .status(200)
         .json({ message: "Login in succesfull!", authorization_token: token });
+        
     } else {
       return res.status(400).json({ message: "Password incorrect!" });
     }
