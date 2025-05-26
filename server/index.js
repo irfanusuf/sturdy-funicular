@@ -2,7 +2,8 @@ const express = require("express")    // importing express from node modules
 const { registerController, loginController, forgotPassController, changePassController, changeUsernameController } = require("./controllers/userController")
 const { connectDb } = require("./config/connectDb")
 const cors = require("cors")
-const { verifyToken } = require("./controllers/authController")
+const { verifyToken, authorize } = require("./controllers/authController")
+const { addPost } = require("./controllers/postController")
 
 
 
@@ -10,7 +11,6 @@ const app = express()   // creating an express app
 const port = 4000
 
 connectDb()
-
 
 // middle wares
 
@@ -34,6 +34,15 @@ app.post("/edit/user",changeUsernameController)
 // verifyToken
 
 app.get("/verify/token" ,  verifyToken)
+
+
+
+//post routes
+
+app.post("/add/post"   ,authorize,  addPost )
+
+
+// app.post("/edit/post"  ,  authorize ,   EditPost )
 
 
 
