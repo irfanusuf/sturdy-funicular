@@ -1,13 +1,9 @@
 
 
-
-
-
-
-
 ## Express Project
 
-This is an Express.js project. Below are the required environment variables for configuration:
+This is an Mern Stack project. Below are the required environment variables for configuration of server ,
+In the Server Folder create .env File and paste these variables with your own credentials 
 
 ```env
 SECRET_KEY=""
@@ -29,7 +25,7 @@ SMTP_PORT=""
 3. Create a `.env` file in the root directory and add the above environment variables.
 4. Start the server:
     ```bash
-    npm start
+    npm run dev
     ```
 
 ### Environment Variables

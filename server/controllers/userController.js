@@ -2,6 +2,7 @@ const { User } = require("../models/userModel");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const { transport } = require("../utilities/nodeMailer");
+require('dotenv').config()
 
 const registerController = async (req, res) => {
   try {
@@ -74,7 +75,7 @@ const loginController = async (req, res) => {
     if (verifyPass) {
       // session management
 
-      const secretKey = "kfhusdgbjtfdsafbvmbxvreiytiewiqdpofwcmlxanxcz.xzmcx";
+      const secretKey = process.env.SECRET_KEY
 
       const token = await jwt.sign(
         { userId: existingUser._id, username: existingUser.username },
