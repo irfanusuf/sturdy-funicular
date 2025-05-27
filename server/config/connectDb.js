@@ -1,14 +1,15 @@
 const mongoose = require("mongoose");
+require('dotenv').config()
 
 const connectDb = async () => {
   try {
     // so something here
-    const cloudUri =
-      "mongodb+srv://irfanusuf33:robolox@robolox.xnj0z.mongodb.net/Dbname?retryWrites=true&w=majority&appName=robolox";
+    const URI =   process.env.CLOUDINARY_URI
+      
 
     // const localUri  ="mongodb://localhost:27017/InterServer"
 
-    await mongoose.connect(cloudUri);
+    await mongoose.connect(URI);
 
     console.log("Db Connected!");
 

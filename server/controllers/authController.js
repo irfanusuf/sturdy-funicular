@@ -1,4 +1,5 @@
 const jwt = require("jsonwebtoken");
+require('dotenv').config()
 
 const verifyToken = async (req, res) => {
   try {
@@ -33,7 +34,7 @@ const authorize = async (req, res, next) => {
         .status(401)
         .json({ message: "Unauthorised | Token not Found!" });
     }
-    const secretKey = "kfhusdgbjtfdsafbvmbxvreiytiewiqdpofwcmlxanxcz.xzmcx";
+    const secretKey =  process.env.SECRET_KEY
 
     const verify = await jwt.verify(token, secretKey);
 

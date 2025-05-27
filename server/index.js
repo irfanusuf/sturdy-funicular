@@ -4,11 +4,12 @@ const { connectDb } = require("./config/connectDb")
 const cors = require("cors")
 const { verifyToken, authorize } = require("./controllers/authController")
 const { addPost } = require("./controllers/postController")
+require('dotenv').config()
 
 
 
 const app = express()   // creating an express app
-const port = 4000
+const port = process.env.PORT
 
 connectDb()
 
@@ -26,9 +27,12 @@ app.get("/index" , (req,res)=>{res.status(201).json({message : "Api Successfull"
 // user Routes
 app.post("/register" ,  registerController)     // done 
 app.post("/login" , loginController )
+
 app.get("/forgot/Password"  , forgotPassController ) 
 app.post ("/change/password" , changePassController)
-app.post("/edit/user",changeUsernameController)
+
+
+app.post("/edit/user", authorize ,  changeUsernameController)
 
 
 // verifyToken
@@ -51,4 +55,4 @@ app.post("/add/post"   ,authorize,  addPost )
 
 
 
-app.listen(port , ()=>{console.log(`Server listening on port ${port}`)} )
+app.listen(port , ()=>{console.log(`Server listening!`)} )
