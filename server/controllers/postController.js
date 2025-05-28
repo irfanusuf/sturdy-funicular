@@ -1,5 +1,6 @@
 const { Post } = require("../models/postModel");
-const { cloudinary } = require("../utilities/cloudinary");
+const  cloudinary  = require("../utilities/cloudinary");
+
 
 const addPost = async (req, res) => {
   try {
@@ -9,10 +10,15 @@ const addPost = async (req, res) => {
 
     const { postTitle, postDesc, shortDesc } = req.body;
 
-    const {image} = req.file.path   /// only works when multer middleware is configured 
+    const imagePath  = req.file.path   /// only works when multer middleware is configured 
 
 
+    console.log(imagePath)
     // if not image 
+
+    if(!imagePath ){
+      return res.status(400).json({ message: "image is  required!" });
+    }
 
     if (postTitle === "" || postDesc === "" || shortDesc === "") {
       return res.status(400).json({ message: "feilds with * are required!" });
@@ -20,7 +26,10 @@ const addPost = async (req, res) => {
 
     // upload  image to cloudinary  to get secure Url  which will return secure url
 
-    const secureUrl = ""
+     const upload = await cloudinary.uploader.upload(imagePath)
+
+
+    const secureUrl = upload.secure_url
 
     const newPost = await Post.create({
       postTitle,
