@@ -1,13 +1,10 @@
-import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React from "react";
 
-import IsAuthorised from "../shared/IsAuthorised";
+
+
 
 const Dashboard = () => {
   // simulate
-
-IsAuthorised()
-
 
   return (
     <div className="container mt-5">

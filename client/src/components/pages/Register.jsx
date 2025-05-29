@@ -7,7 +7,7 @@ const Register = () => {
   const [username, setusername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-   const [loading , setloading] = useState(false)
+  const [loading , setloading] = useState(false)
 
   const navigate = useNavigate();
 
@@ -53,7 +53,6 @@ const Register = () => {
 
         <div className="mb-3">
           <label className="mb-2">
-            {" "}
             Username <span className="text-danger">*</span>
           </label>
           <input
@@ -69,8 +68,7 @@ const Register = () => {
 
         <div className="mb-3">
           <label className="mb-2">
-            {" "}
-            Email <span className="text-danger">*</span>{" "}
+            Email <span className="text-danger">*</span>
           </label>
           <input
             onChange={(event) => {
@@ -100,11 +98,9 @@ const Register = () => {
         </div>
 
         <p>
-          {" "}
           Already an existing user. Go to the <Link to={"/login"}>
-            {" "}
-            login{" "}
-          </Link>{" "}
+            login
+          </Link>
         </p>
         <button
           type="submit"

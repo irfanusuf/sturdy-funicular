@@ -58,7 +58,7 @@ body {
 }
 
 
-.Loading_Animation{
+.Loading_container{
   display: flex;
   justify-content: center;
   align-items: center;

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import Navbar from "./components/shared/Navbar";
 import Footer from "./components/shared/Footer";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
@@ -12,27 +12,25 @@ import Login from "./components/pages/Login";
 import Register from "./components/pages/Register";
 import { ToastContainer } from "react-toastify";
 import Dashboard from "./components/pages/Dashboard";
+import IsAuthorised from "./components/shared/IsAuthorised";
 
 const App = () => {
-  const [username, setUsername] = useState("javeed");
-  const [loading, setloading] = useState(true);
-  const [count, setCount] = useState(0);
-
-  const handleClick = () => {
-    setUsername("adil");
-  };
-
-  const handleCounter = () => {
-    setCount((count) => count + 1);
-  };
-
   return (
     // jsx fragment
     <>
       <BrowserRouter>
-
-      <ToastContainer position="top-left"/>
-
+        <ToastContainer
+          position="top-left"
+          autoClose={3000}
+          hideProgressBar={true}
+          newestOnTop={false}
+          closeOnClick={false}
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="colored"
+        />
 
         <Navbar />
 
@@ -40,14 +38,22 @@ const App = () => {
         <div className="main">
           <Routes>
             <Route path="*" element={<NoPageFound />} />
-            <Route path="/" element={<Home username={username} />} />
+            <Route path="/" element={<Home username={"javeed"} />} />
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/shop" element={<Shop />} />
             <Route path="/services" element={<Services />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
-            <Route path="/user/dashboard" element={<Dashboard />} />
+            <Route
+              path="/user/dashboard"
+              element={
+                <IsAuthorised>
+                  {" "}
+                  <Dashboard />
+                </IsAuthorised>
+              }
+            />
           </Routes>
         </div>
 

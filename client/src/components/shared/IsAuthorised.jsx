@@ -1,44 +1,72 @@
 import axios from "axios";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import loadingGIF from "../../assets/loading.gif";
 
-const IsAuthorised = () => {
+const IsAuthorised = ({ children }) => {
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    const token = localStorage.getItem("Authorization Token");
 
+    setLoading(true)
+    const token = localStorage.getItem("Authorization Token");
     if (token === "" || token === undefined || token === null) {
-      toast.error("Forbidden! Token Not Found"); // notifications
-      navigate("/login");
+      toast.error("You have been logged Out"); // notifications
+
+      
+      setTimeout(() => {
+        navigate("/login");
+        toast.error("Kindly login Again!"); // notifications
+      }, 5000);
+
+
     } else {
       // IIF
       (async () => {
         try {
+          setLoading(true);
           const url = `http://localhost:4000/verify/token?token=${token}`;
 
           const res = await axios.get(url); //backend  api call  for verification
 
-          if (res.status !== 200) {
-            navigate("/login");
+          if (res.status === 200) {
+            setTimeout(() => {
+              setLoading(false);
+            }, 3000);
           }
         } catch (error) {
-          if (error.response) {
-            const statusCodeARR = [401, 403, 500];
 
+          setLoading(true);
+
+          if (error.response) {
+            const statusCodeARR = [400, 401, 403, 500];
             if (statusCodeARR.includes(error.response.status)) {
               toast.error(error.response.data.message); // static messsage
             }
-
-            navigate("/login");
+          }else{
+            toast.error("Network Error!");
           }
+         
+          setTimeout(() => {
+            navigate("/login");
+          }, 3000);
+          
         }
       })();
     }
   }, [navigate]);
 
-  return null;
+  if (loading) {
+    return (
+      <div className="Loading_container">
+        <img src={loadingGIF} alt="Loading ...." />
+      </div>
+    );
+  } else {
+    return children;
+  }
 };
 
 export default IsAuthorised;

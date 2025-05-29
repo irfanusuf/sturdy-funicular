@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { Link, useNavigate } from "react-router-dom";
-import loadingGIF from "../../assets/loading.gif"
+// import loadingGIF from "../../assets/loading.gif"
 
 
 const Login = () => {
@@ -100,7 +100,7 @@ const Login = () => {
           }}
           disabled = {loading}
         >
-          {loading ? <img  alt="Loading...."  width={50}/> : "Login"}
+          {loading ? "Loading...."  : "Login"}
         </button>
       </form>
     </div>
