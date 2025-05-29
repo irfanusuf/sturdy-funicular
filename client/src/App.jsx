@@ -31,7 +31,7 @@ const App = () => {
     <>
       <BrowserRouter>
 
-      <ToastContainer position="bottom-left"/>
+      <ToastContainer position="top-left"/>
 
 
         <Navbar />

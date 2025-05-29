@@ -7,6 +7,7 @@ const Register = () => {
   const [username, setusername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+   const [loading , setloading] = useState(false)
 
   const navigate = useNavigate();
 
@@ -19,6 +20,7 @@ const Register = () => {
   const handleRegister = async (event) => {
     try {
       event.preventDefault();
+      setloading(true)
 
       const res = await axios.post("http://localhost:4000/register", formBody); // network api call
 
@@ -31,14 +33,16 @@ const Register = () => {
       }
     } catch (error) {
       if (error.response) {
-        if (error.response.status === 400) {
+        if ([400, 401, 403, 500].includes(error.response.status)) {
           toast.error(error.response.data.message);
         }
       } else {
         toast.error("Network Error!");
       }
-
-      console.error(error);
+    }finally{
+      setTimeout(() => {
+        setloading(false)
+      }, 3000);
     }
   };
 
@@ -108,8 +112,9 @@ const Register = () => {
           onClick={(event) => {
             handleRegister(event);
           }}
+          disabled = {loading}
         >
-          Register
+        { loading ? "Loading......" : "Register"}
         </button>
       </form>
     </div>
