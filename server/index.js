@@ -22,30 +22,28 @@ app.use(express.json())    // body ka format json hai    // use kerpatey hai req
 // body parser
 app.use(cors())     // cors policy unblocked
 
+
 app.get("/index" , (req,res)=>{res.status(201).json({message : "Api Successfull" , success : true  })})
 
 // post requests which accepts request object 
 
 // user Routes
 app.post("/register" ,  registerController)     // done 
-app.post("/login" , loginController )
+app.post("/login" , loginController )     // done
 
-app.get("/forgot/Password"  , forgotPassController ) 
-app.post ("/change/password" , changePassController)
+app.get("/forgot/Password"  , forgotPassController )    // pending 
+app.post ("/change/password" , changePassController)   // pending
 
 
-app.post("/edit/user", authorize ,  changeUsernameController)
-
+app.post("/edit/user", authorize ,  changeUsernameController)   // pending
 
 // verifyToken
 
-app.get("/verify/token" ,  verifyToken)
-
-
+app.get("/verify/token" ,  verifyToken)     // isAuthorised // done 
 
 //post routes
 
-app.post("/add/post" , authorize , multmid,   addPost )
+app.post("/add/post" , authorize , multmid,   addPost )   // testing done on postman 
 
 
 // app.post("/edit/post"  ,  authorize ,   EditPost )

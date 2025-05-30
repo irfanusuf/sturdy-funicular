@@ -4,7 +4,7 @@ require('dotenv').config()
 const connectDb = async () => {
   try {
     // so something here
-    const URI =   process.env.CLOUDINARY_URI
+    const URI =   process.env.MONGO_URI
       
 
     // const localUri  ="mongodb://localhost:27017/InterServer"
