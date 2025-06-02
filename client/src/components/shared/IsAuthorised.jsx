@@ -13,6 +13,7 @@ const IsAuthorised = ({ children }) => {
     setLoading(true)
     const token = localStorage.getItem("Authorization Token");
     if (token === "" || token === undefined || token === null) {
+      
       toast.error("You have been logged Out"); // notifications
 
       
@@ -31,8 +32,11 @@ const IsAuthorised = ({ children }) => {
 
           const res = await axios.get(url); //backend  api call  for verification
 
+
+
           if (res.status === 200) {
             setTimeout(() => {
+              localStorage.setItem("username" , res.data.resolve.username)
               setLoading(false);
             }, 3000);
           }

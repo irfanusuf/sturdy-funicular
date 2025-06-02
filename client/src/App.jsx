@@ -42,18 +42,18 @@ const App = () => {
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/shop" element={<Shop />} />
+
+
+
             <Route path="/services" element={ <IsAuthorised>    <Services/>  </IsAuthorised>} />
+
+
+            
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
 
-
-
             <Route
-              path="/user/dashboard"
-              element={
-                <IsAuthorised>
-                  <Dashboard />
-                </IsAuthorised>
+              path="/user/dashboard" element={<IsAuthorised> <Dashboard /></IsAuthorised>
               }
             />
 
