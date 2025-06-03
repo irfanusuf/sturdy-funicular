@@ -1,24 +1,22 @@
 const { Post } = require("../models/postModel");
-const  cloudinary  = require("../utilities/cloudinary");
-
+const cloudinary = require("../utilities/cloudinary");
 
 const addPost = async (req, res) => {
   try {
-
-    // logic for authorisation   // it should be in dedicated middle ware 
-
+    // logic for authorisation   // it should be in dedicated middle ware
 
     const { postTitle, postDesc, shortDesc } = req.body;
 
-    const imagePath  = req.file.path   /// only works when multer middleware is configured 
+
+    let image = req.body.image
+    // let image = req.file.path  // when the image is a binary  file and not base 64 url encoded  
 
 
-    console.log(imagePath)
-    // if not image 
 
-    if(!imagePath ){
-      return res.status(400).json({ message: "image is  required!" });
+    if (image === "") {
+      return res.status(400).json({message : "Image File missing!"})
     }
+
 
     if (postTitle === "" || postDesc === "" || shortDesc === "") {
       return res.status(400).json({ message: "feilds with * are required!" });
@@ -26,16 +24,15 @@ const addPost = async (req, res) => {
 
     // upload  image to cloudinary  to get secure Url  which will return secure url
 
-     const upload = await cloudinary.uploader.upload(imagePath)
+    const upload = await cloudinary.uploader.upload(image);
 
-
-    const secureUrl = upload.secure_url
+    const secureUrl = upload.secure_url;
 
     const newPost = await Post.create({
       postTitle,
       postDesc,
       shortDesc,
-      postImgUrl : secureUrl,
+      postImgUrl: secureUrl,
     });
 
     if (newPost) {

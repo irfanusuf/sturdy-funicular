@@ -9,4 +9,7 @@ const upload = multer({
 
 const multmid = upload.single("image");
 
+
+// console.log(multmid)
+
 module.exports = multmid;
