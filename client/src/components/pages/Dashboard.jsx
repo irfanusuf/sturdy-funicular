@@ -6,6 +6,7 @@ const Dashboard = () => {
 
   const [showform, setShowForm] = useState(false);
 
+
   return (
     <div className="container mt-5">
       <div>
@@ -15,7 +16,7 @@ const Dashboard = () => {
 
         <h4> Seesion Management </h4>
         <p>
-          {" "}
+          
           By using IsAuthorised higher order component function which is calling
           backend for verification of token{" "}
         </p>
@@ -30,10 +31,18 @@ const Dashboard = () => {
           }}
           className="btn btn-outline-primary"
         >
+          
           {showform ? "cancel" : " Add Post"}
-        </button>
 
+        </button>
+          
+
+          {/* ternary operator */}
         {showform && <UploadPost />}
+
+
+
+        
       </div>
     </div>
   );

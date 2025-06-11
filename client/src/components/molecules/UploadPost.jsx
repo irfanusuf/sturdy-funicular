@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { toast } from "react-toastify";
+import axios from "axios";
 
 const UploadPost = () => {
   // form hooks
@@ -9,18 +10,56 @@ const UploadPost = () => {
   const [postDesc, setPostDesc] = useState("");
   const [image, setImage] = useState(null);
 
-  const uploadPost = (e) => {
+  const [loading , setloading] = useState(false)
+
+  const handleImage = (e) => {
+    const file = e.target.files[0]; // extraction of file
+
+    const reader = new FileReader(); // intializing  instance of file reader so taht all methods will avilable in the reader
+
+    reader.readAsDataURL(file); // conversion to base 64 url   ///  image url ka type hai
+
+    reader.onload = () => {
+      if (reader.readyState === 2) {
+        setImage(reader.result);
+      }
+    };
+
+    // setImage(e.target.files[0])
+  };
+
+  // const formData = {postTitle ,  shortDesc ,  postDesc , image}
+
+  const formData = new FormData();
+
+  formData.append("postTitle", postTitle);
+  formData.append("shortDesc", shortDesc);
+  formData.append("postDesc", postDesc);
+  formData.append("image", image);
+
+  const uploadPost = async (e) => {
     e.preventDefault();
-
     try {
+      // axios call     //localhost:4000/add/post
+      setloading(true)
+      const token = localStorage.getItem("Authorization Token");
 
-            // axios call     //localhost:4000/add/post   
+      const res = await axios.post(
+        `http://localhost:4000/add/post?token=${token}`,
+        formData
+      );
 
-            console.log(e)
+      if (res.status === 201) {
+        setloading(false)
+        toast.success(res.data.message);
+      } else {
+        toast.error("Something Went Wrong!");
+      }
 
-
+      console.log(e);
     } catch (error) {
       toast.error("Network Error!");
+      setloading(false)
       console.error(error);
     }
   };
@@ -62,7 +101,12 @@ const UploadPost = () => {
           placeholder="Select Image"
           type="file"
           className="form-control"
+          onChange={(e) => {
+            handleImage(e);
+          }}
         />
+
+        <img src={image} alt="Image-Upload" width={200} />
 
         <button
           onClick={(e) => {
@@ -70,8 +114,8 @@ const UploadPost = () => {
           }}
           className="btn btn-outline-success mt-3"
         >
-          {" "}
-          Post
+          
+          {loading ? "Uploading" :   " Post Upload"}
         </button>
       </form>
     </div>
