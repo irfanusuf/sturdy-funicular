@@ -64,3 +64,20 @@ body {
   align-items: center;
   min-height: 90vh;
 }
+
+.blogs_container{
+
+  display: flex;
+  gap: 40px;
+  flex-wrap: wrap;
+  width: 80%;
+  margin: auto;
+ 
+>.single_blog{
+
+
+  /* border: 1px solid green; */
+  width: 400px;
+}
+
+}

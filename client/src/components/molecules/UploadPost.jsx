@@ -44,21 +44,35 @@ const UploadPost = () => {
       setloading(true)
       const token = localStorage.getItem("Authorization Token");
 
-      const res = await axios.post(
-        `http://localhost:4000/add/post?token=${token}`,
-        formData
-      );
+      //  i can done front end validation 
+      let res   // defining variable 
 
-      if (res.status === 201) {
-        setloading(false)
-        toast.success(res.data.message);
-      } else {
-        toast.error("Something Went Wrong!");
+      if(image !== null){
+         res = await axios.post(
+          `http://localhost:4000/add/post?token=${token}`,
+          formData
+        );
+        if (res.status === 201) {
+          setloading(false)
+          toast.success(res.data.message);
+        } else {
+          toast.error("Something Went Wrong!");
+        }
       }
-
-      console.log(e);
+      else{
+        toast.error("Image is missing")
+        setloading(false)
+      }
+    
     } catch (error) {
-      toast.error("Network Error!");
+       if (error.response) {
+              if ([400, 401, 403, 500].includes(error.response.status)) {
+                toast.error(error.response.data.message);
+              }
+            } else {
+              toast.error("Network Error!");
+            }
+
       setloading(false)
       console.error(error);
     }

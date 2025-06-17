@@ -5,21 +5,20 @@ const addPost = async (req, res) => {
   try {
     // logic for authorisation   // it should be in dedicated middle ware
 
-    const { postTitle, postDesc, shortDesc } = req.body;
+    const { postTitle, postDesc, shortDesc , image  } = req.body;
 
 
-    let image = req.body.image
+    // let image = req.body.image
     // let image = req.file.path  // when the image is a binary  file and not base 64 url encoded  
 
-
-
-    if (image === "") {
-      return res.status(400).json({message : "Image File missing!"})
-    }
+    // console.log(image)
+    // if (image === "") {
+    //   return res.status(400).json({message : "Image File missing!"})
+    // }
 
 
     if (postTitle === "" || postDesc === "" || shortDesc === "") {
-      return res.status(400).json({ message: "feilds with * are required!" });
+      return res.status(400).json({ message: "Feilds with * are required!" });
     }
 
     // upload  image to cloudinary  to get secure Url  which will return secure url
@@ -45,4 +44,25 @@ const addPost = async (req, res) => {
   }
 };
 
-module.exports = { addPost };
+
+
+const getAllPosts = async (req,res) =>{
+
+  try {
+
+      const posts = await Post.find()  //db se posts ko find kiya 
+
+      if(posts.length > 0 ){
+        res.status(200).json({posts})
+      }
+      else{
+        res.status(404).json({message : "No posts Found!"})
+      }
+
+    
+  } catch (error) {
+    console.error(error)
+  }
+}
+
+module.exports = { addPost , getAllPosts };

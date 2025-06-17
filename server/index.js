@@ -3,7 +3,7 @@ const { registerController, loginController, forgotPassController, changePassCon
 const { connectDb } = require("./config/connectDb")
 const cors = require("cors")
 const { verifyToken, authorize } = require("./controllers/authController")
-const { addPost } = require("./controllers/postController")
+const { addPost, getAllPosts } = require("./controllers/postController")
 const multmid = require("./utilities/multer")
 const bodyParser = require("body-parser")
 require('dotenv').config()
@@ -15,7 +15,7 @@ const port = process.env.PORT
 
 connectDb()
 
-// middle wares
+// middlewares
 
 // app.use(express.json())    // body ka format json hai    // use kerpatey hai req.body
 // alternative 
@@ -52,16 +52,12 @@ app.get("/verify/token" ,  verifyToken)     // isAuthorised // done
 
 //post routes
 
-app.post("/add/post" , authorize  , multmid,  addPost )   // testing done on postman 
+app.post("/add/post" , authorize  , multmid,  addPost )   // testing done on postman  // frontend done 
+
+
+app.get("/blogs/getAll" , getAllPosts )   
 
 
 // app.post("/edit/post"  ,  authorize ,   EditPost )
-
-
-
-
-
-
-
 
 app.listen(port , ()=>{console.log(`Server listening!`)} )

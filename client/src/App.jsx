@@ -13,6 +13,7 @@ import Register from "./components/pages/Register";
 import { ToastContainer } from "react-toastify";
 import Dashboard from "./components/pages/Dashboard";
 import IsAuthorised from "./components/shared/IsAuthorised";
+import Blogs from "./components/pages/Blogs";
 
 const App = () => {
   return (
@@ -42,14 +43,15 @@ const App = () => {
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/shop" element={<Shop />} />
+            <Route path="/blogs" element={<Blogs />} />
             <Route path="/services" element={ <IsAuthorised>    <Services/>  </IsAuthorised>} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
-            <Route
-              path="/user/dashboard" element={<IsAuthorised> <Dashboard /></IsAuthorised>
-              }
-            />
-          </Routes>
+            <Route path="/user/dashboard" element={<IsAuthorised> <Dashboard /></IsAuthorised> }/>
+
+
+
+      </Routes>
         </div>
 
         <Footer />
