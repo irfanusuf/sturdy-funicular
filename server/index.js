@@ -3,7 +3,7 @@ const { registerController, loginController, forgotPassController, changePassCon
 const { connectDb } = require("./config/connectDb")
 const cors = require("cors")
 const { verifyToken, authorize } = require("./controllers/authController")
-const { addPost, getAllPosts } = require("./controllers/postController")
+const { addPost, getAllPosts, getPost } = require("./controllers/postController")
 const multmid = require("./utilities/multer")
 const bodyParser = require("body-parser")
 require('dotenv').config()
@@ -53,9 +53,8 @@ app.get("/verify/token" ,  verifyToken)     // isAuthorised // done
 //post routes
 
 app.post("/add/post" , authorize  , multmid,  addPost )   // testing done on postman  // frontend done 
-
-
-app.get("/blogs/getAll" , getAllPosts )   
+app.get("/posts/getAll" , getAllPosts )   
+app.get("/posts/:postId" , getPost )   
 
 
 // app.post("/edit/post"  ,  authorize ,   EditPost )

@@ -65,7 +65,7 @@ body {
   min-height: 90vh;
 }
 
-.blogs_container{
+.posts_container{
 
   display: flex;
   gap: 40px;
@@ -73,7 +73,7 @@ body {
   width: 80%;
   margin: auto;
  
->.single_blog{
+>.single_post{
 
 
   /* border: 1px solid green; */

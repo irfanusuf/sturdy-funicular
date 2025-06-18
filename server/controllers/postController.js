@@ -5,17 +5,15 @@ const addPost = async (req, res) => {
   try {
     // logic for authorisation   // it should be in dedicated middle ware
 
-    const { postTitle, postDesc, shortDesc , image  } = req.body;
-
+    const { postTitle, postDesc, shortDesc, image } = req.body;
 
     // let image = req.body.image
-    // let image = req.file.path  // when the image is a binary  file and not base 64 url encoded  
+    // let image = req.file.path  // when the image is a binary  file and not base 64 url encoded
 
     // console.log(image)
     // if (image === "") {
     //   return res.status(400).json({message : "Image File missing!"})
     // }
-
 
     if (postTitle === "" || postDesc === "" || shortDesc === "") {
       return res.status(400).json({ message: "Feilds with * are required!" });
@@ -44,25 +42,36 @@ const addPost = async (req, res) => {
   }
 };
 
-
-
-const getAllPosts = async (req,res) =>{
-
+const getAllPosts = async (req, res) => {
   try {
+    const posts = await Post.find(); //db se posts ko find kiya
 
-      const posts = await Post.find()  //db se posts ko find kiya 
-
-      if(posts.length > 0 ){
-        res.status(200).json({posts})
-      }
-      else{
-        res.status(404).json({message : "No posts Found!"})
-      }
-
-    
+    if (posts.length > 0) {
+      res.status(200).json({ posts });
+    } else {
+      res.status(404).json({ message: "No posts Found!" });
+    }
   } catch (error) {
-    console.error(error)
+    console.error(error);
   }
-}
+};
 
-module.exports = { addPost , getAllPosts };
+const getPost = async (req, res) => {
+  try {
+    const { postId } = req.params;
+
+    // const postId = req.params.postId
+
+    const post = await Post.findById(postId);
+
+    if (post) {
+      res.status(200).json({ post });
+    } else {
+      res.status(404).json({ message: "Post not Found!" });
+    }
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+module.exports = { addPost, getAllPosts, getPost };
