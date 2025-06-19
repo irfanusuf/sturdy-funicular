@@ -8,14 +8,11 @@ const SinglePost = () => {
 
   const { postId } = useParams();
 
-
   useEffect(() => {
-  
-    const fetchPost = async () => {
+    (async () => {
       try {
-        
         const res = await axios.get(`http://localhost:4000/posts/${postId}`);
-  
+
         if (res.status === 200) {
           setPost(res.data.post);
         }
@@ -27,15 +24,12 @@ const SinglePost = () => {
         } else {
           toast.error("Network Error!");
         }
-  
+
         console.error(error);
       }
-    };
-  
-    fetchPost();
+    })();
+    
   }, [postId]);
-
-
 
   return (
     <div className="container py-5">

@@ -53,8 +53,8 @@ app.get("/verify/token" ,  verifyToken)     // isAuthorised // done
 //post routes
 
 app.post("/add/post" , authorize  , multmid,  addPost )   // testing done on postman  // frontend done 
-app.get("/posts/getAll" , getAllPosts )   
-app.get("/posts/:postId" , getPost )   
+app.get("/posts/getAll" , getAllPosts )    // done 
+app.get("/posts/:postId" , getPost )    // done 
 
 
 // app.post("/edit/post"  ,  authorize ,   EditPost )

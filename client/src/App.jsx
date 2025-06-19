@@ -15,6 +15,7 @@ import Dashboard from "./components/pages/Dashboard";
 import IsAuthorised from "./components/shared/IsAuthorised";
 import Posts from "./components/pages/Posts";
 import SinglePost from "./components/pages/SinglePost";
+import JobsSearch from "./components/pages/JobsSearch";
 
 
 const App = () => {
@@ -45,11 +46,10 @@ const App = () => {
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/shop" element={<Shop />} />
-            <Route path="/posts" element={<Posts/>} />
-         
-
-            {/* // i using param  */}
+            <Route path="/posts" element={<Posts/>} />    
             <Route path="/posts/:postId" element={<SinglePost/>} />   
+            <Route path="/jobs" element={<JobsSearch/>} />   
+
 
             
             <Route path="/services" element={ <IsAuthorised>    <Services/>  </IsAuthorised>} />
