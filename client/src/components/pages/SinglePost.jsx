@@ -41,7 +41,7 @@ const SinglePost = () => {
         <div className="col-6">
           <h2> {post.postTitle} </h2>
 
-          <p className="text-muted"> {post.postDesc} </p>
+          <p dangerouslySetInnerHTML={{ __html: post.postDesc }} />
         </div>
       </div>
     </div>

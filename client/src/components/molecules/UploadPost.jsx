@@ -1,6 +1,10 @@
 import React, { useState } from "react";
 import { toast } from "react-toastify";
 import axios from "axios";
+import FroalaEditorComponent from "react-froala-wysiwyg";
+import 'froala-editor/css/froala_style.min.css';
+import 'froala-editor/css/froala_editor.pkgd.min.css';
+
 
 const UploadPost = () => {
   // form hooks
@@ -17,7 +21,7 @@ const UploadPost = () => {
 
     const reader = new FileReader(); // intializing  instance of file reader so taht all methods will avilable in the reader
 
-    reader.readAsDataURL(file); // conversion to base 64 url   ///  image url ka type hai
+    reader.readAsDataURL(file); // conversion to base 64 url  FroalaEditorComponent ///  image url ka type hai
 
     reader.onload = () => {
       if (reader.readyState === 2) {
@@ -98,24 +102,28 @@ const UploadPost = () => {
           className="form-control mb-3"
           onChange={(e) => {
             setShortDesc(e.target.value);
-          }}
-        />
+            }}
+          />
 
-        <input
-          placeholder="Description in 300 words"
-          type="text"
-          value={postDesc}
-          className="form-control mb-3"
-          onChange={(e) => {
-            setPostDesc(e.target.value);
-          }}
-        />
+          {/* Froala Editor for Description */}
+          <div className="mb-3">
+            <FroalaEditorComponent
+            tag='textarea'
+            model={postDesc}
+            onModelChange={setPostDesc}   // 
+            config={{
+              placeholderText: "Description in 1000 words",
+              charCounterMax: 1000,
+              heightMin: 150,
+            }}
+            />
+          </div>
 
-        <input
-          placeholder="Select Image"
-          type="file"
-          className="form-control"
-          onChange={(e) => {
+          <input
+            placeholder="Select Image"
+            type="file"
+            className="form-control"
+            onChange={(e) => {
             handleImage(e);
           }}
         />
