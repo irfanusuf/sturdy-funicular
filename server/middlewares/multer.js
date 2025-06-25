@@ -12,4 +12,7 @@ const multmid = upload.single("image");
 
 // console.log(multmid)
 
-module.exports = multmid;
+
+module.exports = multmid
+
+

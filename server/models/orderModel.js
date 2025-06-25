@@ -1,25 +1,30 @@
 const mongoose = require("mongoose");
 
-const Order = mongoose.model(
-  "Order",
+const orderSchema = new mongoose.Schema(
   {
-    userId: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+    userId: {
+      type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
+
     products: [
       {
         product: {
-          productId: { type: mongoose.Schema.Types.ObjectId, ref: "Product" },
-          qty: { type: Number },
+          productId: { type: mongoose.Schema.Types.ObjectId,ref: "Product", required: true,},
+          quantity: { type: Number,required: true, min: 1, },
         },
       },
     ],
 
-    orderValue: { type: Number },
-    paymentStatus: { type: Boolean, default: false },
-    orderStatus : {type : String , default  : "pending"}
+    orderValue: { type: Number, required: true,  min: 0,   },
+
+    paymentStatus: {type: String, enum: ["pending", "paid", "failed", "refunded"], default: "pending", },
+
+    orderStatus: {type: String, enum: ["pending", "processing", "shipped", "delivered", "cancelled"],default: "pending", },
   },
   {
     timestamps: true,
   }
 );
+
+const Order = mongoose.model("Order", orderSchema);
 
 module.exports = { Order };

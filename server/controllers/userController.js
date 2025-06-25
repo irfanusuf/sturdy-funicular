@@ -4,7 +4,7 @@ const jwt = require("jsonwebtoken");
 const { transport } = require("../utilities/nodeMailer");
 require('dotenv').config()
 
-const registerController = async (req, res) => {
+exports.register = async (req, res) => {
   try {
     // const username = req.body
     // const email = req.body
@@ -54,7 +54,7 @@ const registerController = async (req, res) => {
   }
 };
 
-const loginController = async (req, res) => {
+exports.login = async (req, res) => {
   try {
     const { email, password } = req.body;
 
@@ -96,7 +96,7 @@ const loginController = async (req, res) => {
   }
 };
 
-const forgotPassController = async (req, res) => {
+exports.forgotPass= async (req, res) => {
   try {
     // try to write logic here
 
@@ -142,7 +142,7 @@ const forgotPassController = async (req, res) => {
   }
 };
 
-const changePassController = async (req, res) => {
+exports.changePass = async (req, res) => {
   try {
     const { password, confirmPass } = req.body;
 
@@ -186,7 +186,7 @@ const changePassController = async (req, res) => {
   }
 };
 
-const changeUsernameController = async(req,res) =>{
+exports.changeUsername = async(req,res) =>{
 
 try {
 
@@ -199,14 +199,22 @@ try {
 
 }
 
+exports.verify =  async (req,res) =>{
+  try {
+    const userId = req.userId
+
+    const user = await User.findById(userId)
+
+    if(user){
+      res.status(200).json({message : "User Verified SuccesFully!" , user})
+    }else{
+      res.status (400).json({message : "User not Found!"})
+    }
+    
+  } catch (error) {
+    console.error(error)
+  }
+}
 
 
 
-
-module.exports = {
-  registerController,
-  loginController,
-  forgotPassController,
-  changePassController,
-  changeUsernameController
-};

@@ -1,7 +1,7 @@
 const { Post } = require("../models/postModel");
 const cloudinary = require("../utilities/cloudinary");
 
-const addPost = async (req, res) => {
+exports.addPost = async (req, res) => {
   try {
     // logic for authorisation   // it should be in dedicated middle ware
 
@@ -42,7 +42,7 @@ const addPost = async (req, res) => {
   }
 };
 
-const getAllPosts = async (req, res) => {
+exports.getAllPosts = async (req, res) => {
   try {
     const posts = await Post.find(); //db se posts ko find kiya
 
@@ -56,7 +56,7 @@ const getAllPosts = async (req, res) => {
   }
 };
 
-const getPost = async (req, res) => {
+exports.getPost = async (req, res) => {
   try {
     const { postId } = req.params;
 
@@ -74,4 +74,10 @@ const getPost = async (req, res) => {
   }
 };
 
-module.exports = { addPost, getAllPosts, getPost };
+exports.editPost = async(req,res) =>{
+  try {
+    
+  } catch (error) {
+    
+  }
+}
