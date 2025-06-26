@@ -6,6 +6,7 @@ require('dotenv').config()
 const  connectDb  = require("./config/connectDb")
 const userRoutes = require ("./routes/userRoutes")
 const postRoutes = require ("./routes/postRoutes")
+const productRoutes = require ("./routes/productRoutes")
 
 
 const app = express()   // creating an express app
@@ -22,11 +23,18 @@ app.use(bodyParser.json())
 app.use(cors())     // cors policy unblocked
 
 //test Route For testing if the server is working 
-app.get("/" , (req,res)=>{res.status(201).send("Api Server Wroking ......." )})
+app.get("/" , (req,res)=>{res.status(201).send("Api Server Working ......." )})
 // user Routes
 app.use("/user" , userRoutes)   // single middleware with multiple Routes inside
 //post aka blog Routes
 app.use("/post" , postRoutes)     // single middleware with multiple Routes inside
+
+//product Routes
+
+app.use("/product",  productRoutes)
+
+
+
 
 
 app.listen(port , ()=>{console.log(`Server listening!`)} )

@@ -8,9 +8,7 @@ const userSchema = new mongoose.Schema(
     profilePic: { type: String },
     mobile: { type: String },
     isAdmin: { type: Boolean, default: false },
-
     cartId: { type: mongoose.Schema.Types.ObjectId, ref: "Cart" },
-
     orders: [{ type: mongoose.Schema.Types.ObjectId, ref: "Order" }],
     posts: [{ type: mongoose.Schema.Types.ObjectId, ref: "Post" }],
   },
