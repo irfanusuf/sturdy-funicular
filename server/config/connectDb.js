@@ -4,14 +4,13 @@ require('dotenv').config()
 const connectDb = async () => {
   try {
     // so something here
-    const URI =   process.env.MONGO_URI
+    const uri =   process.env.MONGO_URI
       
-
     // const localUri  ="mongodb://localhost:27017/InterServer"
 
-    await mongoose.connect(URI);
+    await mongoose.connect(uri);
 
-    console.log("Db Connected!");
+    console.log(`Db Connected! Database:${uri.split("/")[3].split("?")[0]}`);
 
   } catch (error) {
     console.log(error);

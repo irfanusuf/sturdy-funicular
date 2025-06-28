@@ -19,7 +19,7 @@ connectDb()
 // body parser
 // app.use(bodyParser.urlencoded({extended :true}))
 
-app.use(bodyParser.json())
+app.use(bodyParser.json())  // post configure 
 app.use(cors())     // cors policy unblocked
 
 //test Route For testing if the server is working 
@@ -37,4 +37,4 @@ app.use("/product",  productRoutes)
 
 
 
-app.listen(port , ()=>{console.log(`Server listening!`)} )
+app.listen(port , ()=>{console.log(`Server listening on port ${port}!!!`)} )

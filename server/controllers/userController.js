@@ -2,6 +2,7 @@ const { User } = require("../models/userModel");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const { transport } = require("../utilities/nodeMailer");
+const connectDb = require("../config/connectDb");
 require('dotenv').config()
 
 exports.register = async (req, res) => {
@@ -57,6 +58,7 @@ exports.register = async (req, res) => {
 exports.login = async (req, res) => {
   try {
     const { email, password } = req.body;
+
 
     if (email === "" || password === "") {
       return res

@@ -6,35 +6,86 @@ exports.addProduct = async (req, res) => {
   try {
     const { name, description, price, discount, colors, sizes } = req.body;
 
-    let image;
+    // here i kept colors and sizes as comma seperated string which will gets seperated and converted to array
 
-
-    if (req.file !== undefined) {
-      image = req.file.path
-    }
-
-    if (!req.body) {
-      return resHandler(res, 400, "Input Payload not Found!");
-    }
+    let colorsARR =
+      colors !== undefined && colors !== "" ? colors.split(",") : [];
+    let sizesARR = sizes !== undefined && sizes !== "" ? sizes.split(",") : [];
 
     let upload;
+    let imageUrl = "";
 
-
-    if (image !== undefined || image !== "") {
-      upload = await cloudinary.uploader.upload(image);
+    if (!name || !description || !price) {
+      return resHandler(res, 400, "Missing required product fields");
     }
 
-    let product = await Product.create({ name, description, price, discount });
+    if (req.file?.path) {
+      const image = req.file.path;
+      upload = await cloudinary.uploader.upload(image);
+      imageUrl = upload.secure_url;
+      if (!upload) {
+        return resHandler(res, 500, "image Upload Failed!");
+      }
+    }
+
+    let product = await Product.create({
+      name,
+      description,
+      price,
+      discount,
+      colors: colorsARR,
+      sizes: sizesARR,
+      productImgUrls: imageUrl !== "" ? [imageUrl] : [],
+    });
+
+    return resHandler(res, 201, "Product created Succesfuly", product);
+  } catch (error) {
+    console.error(error);
+    return resHandler(res, 500, "Server Error!");
+  }
+};
+
+exports.editProduct = async (req, res) => {
+  try {
+    const { name, description, price, discount, colors, sizes } = req.body;
+
+    console.log(req.body);
+
+    // here i kept colors and sizes as comma seperated string which will gets seperated and converted to array
+    let upload;
+    let imageUrl = "";
+    let colorsARR =
+      colors !== undefined && colors !== "" ? colors.split(",") : [];
+    let sizesARR = sizes !== undefined && sizes !== "" ? sizes.split(",") : [];
+
+    if (!name || !description || !price) {
+      return resHandler(res, 400, "Missing required product fields");
+    }
+    const { productId } = req.params;
+    let product = await Product.findById(productId);
+
+    if (req.file?.path) {
+      const image = req.file.path;
+      upload = await cloudinary.uploader.upload(image);
+      imageUrl = upload.secure_url;
+      if (!upload) {
+        return resHandler(res, 500, "image Upload Failed!");
+      }
+    }
 
     if (product) {
-      product.colors.push(colors);
-      product.sizes.push(sizes);
-      product.productImgUrls.push(upload.secure_url);
-
+      (product.name = name),
+        (product.description = description),
+        (product.price = price),
+        (product.discount = discount),
+        (product.colors = colorsARR),
+        (product.sizes = sizesARR),
+        (product.productImgUrls =
+          imageUrl !== "" ? [imageUrl] : product.productImgUrls);
       await product.save();
-      return resHandler(res, 201, "Product created Succesfuly", product);
+      return resHandler(res, 200, "Product updated!", product);
     } else {
-      return resHandler(res, 500, "Something Went Wrong!");
+      return resHandler(res, 404, "Product not Found!");
     }
   } catch (error) {
     console.error(error);
@@ -42,44 +93,77 @@ exports.addProduct = async (req, res) => {
   }
 };
 
+exports.archive_UnArchiveProduct = async (req, res) => {
+  try {
+    const { productId } = req.params;
 
-exports.editProduct = async (req,res) =>{
-    try {
-        
-    } catch (error) {
-        
+    let product = await Product.findById(productId);
+
+    if (product.isArchived === false) {
+      product.isArchived = true;
+      await product.save();
+
+      return resHandler(res, 200, "Product Archived!", product);
+    } else if (product.isArchived === true) {
+      product.isArchived = false;
+      await product.save();
+
+      return resHandler(res, 400, "Product Unarchived!", product);
     }
-}
+  } catch (error) {
+    console.error(error);
+    return resHandler(res, 500, "Server Error!");
+  }
+};
 
+exports.isAvailOrNot = async (req, res) => {
+  try {
+    const { productId } = req.params;
 
-exports.archiveProduct = async (req,res) =>{
-    try {
-        
-    } catch (error) {
-        
+    let product = await Product.findById(productId);
+
+    if (product.isAvailable === false) {
+      product.isAvailable = true;
+      await product.save();
+
+      return resHandler(res, 200, "Product is Available!", product);
+    } else if (product.isAvailable === true) {
+      product.isAvailable = false;
+      await product.save();
+
+      return resHandler(res, 400, "Product not Available!", product);
     }
-}
+  } catch (error) {
+    console.error(error);
+    return resHandler(res, 500, "Server Error!");
+  }
+};
 
+exports.getAllProducts = async (req, res) => {
+  try {
+    const products = await Product.find();
 
-exports.getAllProducts = async(req,res) =>{
-    try {
-        
-        const products = await Product.find()
-
-        if(products.length > 0){
-            resHandler(res, 200 , "Products Found" , products)
-        }
-
-    } catch (error) {
-        console.error(error)
+    if (products.length > 0) {
+      resHandler(res, 200, "Products Found", products);
     }
-}
+  } catch (error) {
+    console.error(error);
+  }
+};
 
+exports.getProductById = async (req, res) => {
+  try {
+    const { productId } = req.params;
 
-exports.getProductById = async (req,res) =>{
-    try {
-        
-    } catch (error) {
-        
+    const product = await Product.findById(productId);
+
+    if (product) {
+      return resHandler(res, 200, "Product Found!", product);
+    } else {
+      return resHandler(res, 404, "Product not Found!");
     }
-}
+  } catch (error) {
+    console.error(error);
+    return resHandler(res, 500, "Server Error!");
+  }
+};
