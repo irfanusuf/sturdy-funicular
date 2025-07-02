@@ -1,5 +1,5 @@
 const express = require("express");
-const controller = require("../controllers/orderController");
+const controller = require("../controllers/addressController");
 const authorize = require("../middlewares/authorize");
 
 const router = express.Router();
@@ -7,7 +7,7 @@ const router = express.Router();
 
 
 
-router.post("/create" ,authorize ,  controller.createOrder )
+// router.post("/create" ,authorize ,  controller.createAddress)
 
 
 

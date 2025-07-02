@@ -7,6 +7,8 @@ const  connectDb  = require("./config/connectDb")
 const userRoutes = require ("./routes/userRoutes")
 const postRoutes = require ("./routes/postRoutes")
 const productRoutes = require ("./routes/productRoutes")
+const orderRoutes = require ("./routes/orderRoutes")
+const addressRoutes = require ("./routes/addressRoutes")
 
 
 const app = express()   // creating an express app
@@ -32,6 +34,11 @@ app.use("/post" , postRoutes)     // single middleware with multiple Routes insi
 //product Routes
 
 app.use("/product",  productRoutes)
+app.use("/order",  orderRoutes)
+app.use("/address",  addressRoutes)
+
+
+
 
 
 
