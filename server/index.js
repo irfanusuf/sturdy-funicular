@@ -34,7 +34,11 @@ app.use("/post" , postRoutes)     // single middleware with multiple Routes insi
 //product Routes
 
 app.use("/product",  productRoutes)
+
+//Order Routes
 app.use("/order",  orderRoutes)
+
+//Address Routes
 app.use("/address",  addressRoutes)
 
 

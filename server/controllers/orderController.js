@@ -33,10 +33,13 @@ exports.createOrder = async (req, res) => {
     orderValue = quantity * product.price;
 
 
-    if(user.Addresses && user.Addresses.includes(addressId) === false){
+    if(user.addresses && user.addresses.includes(addressId) === false){
 
       return  resHandler(res, 400, "This AddressId doesnot belong to logged in user!");
     }
+
+
+    
     const order = await Order.create({
       userId,
       addressId,

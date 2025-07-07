@@ -4,12 +4,10 @@ const authorize = require("../middlewares/authorize");
 
 const router = express.Router();
 
+router.post("/create", authorize, controller.createAddress);
+router.put("/update/:addressId", authorize, controller.updateAddress);
+router.delete("/remove/:addressId", authorize, controller.removeAddress);
+router.get("/getAllAddresses", authorize, controller.getAllAddresses);
+router.get("/address/:addressId" ,authorize ,  controller.getAddressById)
 
-
-
-// router.post("/create" ,authorize ,  controller.createAddress)
-
-
-
-
-module.exports = router
+module.exports = router;

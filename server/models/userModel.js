@@ -11,7 +11,7 @@ const userSchema = new mongoose.Schema(
     cartId: { type: mongoose.Schema.Types.ObjectId, ref: "Cart" },
     orders: [{ type: mongoose.Schema.Types.ObjectId, ref: "Order" }],
     posts: [{ type: mongoose.Schema.Types.ObjectId, ref: "Post" }],
-    Addresses: [{ type: mongoose.Schema.Types.ObjectId, ref: "Address" }],
+    addresses: [{ type: mongoose.Schema.Types.ObjectId, ref: "Address" }],
   },
   { timestamps: true }
 );
