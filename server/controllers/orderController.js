@@ -4,6 +4,7 @@ const { User } = require("../models/userModel");
 const { resHandler } = require("../utilities/resHandler");
 
 exports.createOrder = async (req, res) => {
+  // create Order for single product
   try {
     const userId = req.userId; // token // logged in user's userId
     const { productId } = req.query;
@@ -18,8 +19,6 @@ exports.createOrder = async (req, res) => {
 
     let user = await User.findById(userId);
 
-    
-
     const product = await Product.findById(productId);
 
     if (!user || !product) {
@@ -30,16 +29,16 @@ exports.createOrder = async (req, res) => {
 
     productsArr.push(orderProduct);
 
-    orderValue = quantity * product.price;
+    orderValue = quantity * product.price; // value is not calculated in the right format
 
-
-    if(user.addresses && user.addresses.includes(addressId) === false){
-
-      return  resHandler(res, 400, "This AddressId doesnot belong to logged in user!");
+    if (user.addresses && user.addresses.includes(addressId) === false) {
+      return resHandler(
+        res,
+        400,
+        "This AddressId doesnot belong to logged in user!"
+      );
     }
 
-
-    
     const order = await Order.create({
       userId,
       addressId,
@@ -61,5 +60,25 @@ exports.createOrder = async (req, res) => {
 
 
 
+exports.updateOrderStatus = async (req, res, orderStatus) => {
+  try {
+    const { orderId } = req.params;
+
+    let order = await Order.findById(orderId);
+
+    if (!order) {
+      return resHandler(res, 404, "Order not Found!");
+    }
+
+    order.orderStatus = orderStatus;
+
+    await order.save();
+
+    return resHandler(res, 200, `Order ${orderStatus}!`);
+  } catch (error) {
+    console.error(error);
+    return resHandler(res, 500, "Server Error!");
+  }
+};
 
 // exports.updateOrder =  async(req,)
