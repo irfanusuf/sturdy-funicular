@@ -16,13 +16,8 @@ router.put("/delivered/:orderId" ,authorize , (req,res) =>{ controller.updateOrd
 router.put("/cancel/:orderId" ,authorize , (req,res) =>{ controller.updateOrderStatus(req ,res, "cancel") }  )
 
 
-
-
-
-
-
-router.get("/fetchAllOrders" ,authorize ,  controller.createOrder )
-router.get("/fetchOrderById/orderId" ,authorize ,  controller.createOrder )
+router.get("/fetchAllOrders" ,authorize ,  controller.fetchAllOrders )
+router.get("/fetchOrderById/orderId" ,authorize ,  controller.fetchOrderById )
 
 
 

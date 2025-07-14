@@ -58,8 +58,6 @@ exports.createOrder = async (req, res) => {
   }
 };
 
-
-
 exports.updateOrderStatus = async (req, res, orderStatus) => {
   try {
     const { orderId } = req.params;
@@ -80,5 +78,37 @@ exports.updateOrderStatus = async (req, res, orderStatus) => {
     return resHandler(res, 500, "Server Error!");
   }
 };
+
+exports.fetchAllOrders = async (req, res) => {
+  try {
+    const orders = await Order.find();
+    if (orders.length > 0) {
+      return resHandler(res, 200, `${orders.length} orders  Found!`, orders);
+    }
+  } catch (error) {
+    console.error(error);
+    return resHandler(res, 500, "Server Error!");
+  }
+};
+
+
+exports.fetchOrderById = async (req, res) => {
+  try {
+    const {orderId} = req.params
+
+    const order = await Order.findById(orderId);
+
+
+
+    if (order) {
+      return resHandler(res, 200, `Order Found!`, order);
+    }
+  } catch (error) {
+    console.error(error);
+    return resHandler(res, 500, "Server Error!");
+  }
+};
+
+
 
 // exports.updateOrder =  async(req,)

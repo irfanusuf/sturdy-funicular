@@ -9,6 +9,7 @@ const postRoutes = require ("./routes/postRoutes")
 const productRoutes = require ("./routes/productRoutes")
 const orderRoutes = require ("./routes/orderRoutes")
 const addressRoutes = require ("./routes/addressRoutes")
+const cartRoutes = require ("./routes/cartRoutes")
 
 
 const app = express()   // creating an express app
@@ -40,6 +41,9 @@ app.use("/order",  orderRoutes)
 
 //Address Routes
 app.use("/address",  addressRoutes)
+
+//Cart Routes
+app.use("/cart",  cartRoutes)
 
 
 
