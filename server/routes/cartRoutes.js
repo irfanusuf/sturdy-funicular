@@ -11,6 +11,7 @@ const router = express.Router();
 
 
 router.post("/addtoCart" , authorize , controller.addToCart)
+router.get("/removeFromCart" , authorize , controller.removeFromCart)
 
 
 
