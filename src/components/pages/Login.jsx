@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import axios from "axios";
 import { toast } from "react-toastify";
 import { Link, useNavigate } from "react-router-dom";
+import { axiosInstance } from "../../utils/axiosInstance";
 // import loadingGIF from "../../assets/loading.gif"
 
 
@@ -22,14 +22,20 @@ const Login = () => {
       event.preventDefault();
       setloading(true)
       
-      const res = await axios.post("http://localhost:4000/login", formBody); // network api call
+
+     
+      const res = await axiosInstance.post("/user/login", formBody); // network api call
 
       if (res.status === 200) {
         toast.success(res.data.message);
-        localStorage.setItem(
-          "Authorization Token",
-          res.data.authorization_token
-        );
+
+
+        // obsolete
+        
+        // localStorage.setItem(
+        //   "Authorization Token",
+        //   res.data.authorization_token
+        // );
 
         setTimeout(() => {
           navigate("/user/dashboard");

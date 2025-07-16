@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import axios from "axios";
 import { toast } from "react-toastify";
 import { Link, useNavigate } from "react-router-dom";
+import { axiosInstance } from "../../utils/axiosInstance";
 
 const Register = () => {
   const [username, setusername] = useState("");
@@ -22,7 +22,7 @@ const Register = () => {
       event.preventDefault();
       setloading(true)
 
-      const res = await axios.post("http://localhost:4000/register", formBody); // network api call
+      const res = await axiosInstance.post("/user/register", formBody); // network api call
 
       if (res.status === 201) {
         toast.success(res.data.message);

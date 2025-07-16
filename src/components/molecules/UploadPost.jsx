@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { toast } from "react-toastify";
-import axios from "axios";
 import FroalaEditorComponent from "react-froala-wysiwyg";
 import 'froala-editor/css/froala_style.min.css';
 import 'froala-editor/css/froala_editor.pkgd.min.css';
+import { axiosInstance } from "../../utils/axiosInstance";
 
 
 const UploadPost = () => {
@@ -46,16 +46,14 @@ const UploadPost = () => {
     try {
       // axios call     //localhost:4000/add/post
       setloading(true)
-      const token = localStorage.getItem("Authorization Token");
+ 
 
       //  i can done front end validation 
       let res   // defining variable 
 
       if(image !== null){
-         res = await axios.post(
-          `http://localhost:4000/add/post?token=${token}`,
-          formData
-        );
+         res = await axiosInstance.post(`/post/add`,formData );
+
         if (res.status === 201) {
           setloading(false)
           toast.success(res.data.message);

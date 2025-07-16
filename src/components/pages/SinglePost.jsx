@@ -1,7 +1,8 @@
-import axios from "axios";
+
 import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { useParams } from "react-router-dom";
+import { axiosInstance } from "../../utils/axiosInstance";
 
 const SinglePost = () => {
   const [post, setPost] = useState({});
@@ -11,7 +12,7 @@ const SinglePost = () => {
   useEffect(() => {
     (async () => {
       try {
-        const res = await axios.get(`http://localhost:4000/posts/${postId}`);
+        const res = await axiosInstance.get(`/post/${postId}`);
 
         if (res.status === 200) {
           setPost(res.data.post);

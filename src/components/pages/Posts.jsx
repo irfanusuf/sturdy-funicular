@@ -1,7 +1,8 @@
-import axios from "axios";
+
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
+import { axiosInstance } from "../../utils/axiosInstance";
 
 const Posts = () => {
 
@@ -10,7 +11,7 @@ const Posts = () => {
   // retrive data from database
   const fetchPosts = async () => {
     try {
-      const res = await axios.get("http://localhost:4000/posts/getAll");
+      const res = await axiosInstance.get("/post/getAll");
 
       if (res.status === 200) {
         setposts(res.data.posts);
