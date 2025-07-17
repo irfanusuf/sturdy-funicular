@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import UploadPost from "../molecules/UploadPost";
+import UploadProduct from "../molecules/UploadProduct";
 
 const Dashboard = () => {
   // conditional rendering
 
-  const [showform, setShowForm] = useState(false);
+  const [showPostForm, setShowPostForm] = useState(false);
+  const [showProductForm , setShowProductForm] = useState(false)
 
 
   return (
@@ -25,24 +27,34 @@ const Dashboard = () => {
       <div>
         <h2> Welcome {localStorage.getItem("username")} </h2>
 
-        <button
-          onClick={() => {
-            setShowForm(!showform);
-          }}
-          className="btn btn-outline-primary"
-        >
-          
-          {showform ? "cancel" : " Add Post"}
 
+
+
+
+        <button onClick={() => {setShowPostForm(!showPostForm); }} className="btn btn-outline-primary" disabled ={showProductForm}>
+          
+          {showPostForm ? "cancel" : " Add Post"}
+
+        </button>
+
+
+
+        <button onClick={()=>{setShowProductForm(!showProductForm)}} className="btn btn-outline-success ms-3" disabled = {showPostForm} >
+
+        {showProductForm ? "cancel" : " Add Product"}
+        
         </button>
           
 
           {/* ternary operator */}
-        {showform && <UploadPost />}
+
+        {/* routing logic will be better rather than manually disabling the buttons */}
+
+        {showPostForm === true && <UploadPost />}
+
+        {showProductForm === true  && <UploadProduct/>}
 
 
-
-        
       </div>
     </div>
   );

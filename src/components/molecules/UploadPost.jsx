@@ -135,7 +135,7 @@ const UploadPost = () => {
           className="btn btn-outline-success mt-3"
         >
           
-          {loading ? "Uploading" :   " Post Upload"}
+          {loading ? "Uploading....." :   " Post Upload"}
         </button>
       </form>
     </div>
