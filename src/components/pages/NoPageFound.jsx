@@ -7,6 +7,7 @@ const NoPageFound = () => {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
+        minHeight :"70vh"
       }}
     >
      <h3>  No Page Found | 404 </h3>

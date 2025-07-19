@@ -16,6 +16,7 @@ import IsAuthorised from "./components/shared/IsAuthorised";
 import Posts from "./components/pages/Posts";
 import SinglePost from "./components/pages/SinglePost";
 import JobsSearch from "./components/pages/JobsSearch";
+import ProductDetails from "./components/pages/ProductDetails";
 
 
 const App = () => {
@@ -42,12 +43,21 @@ const App = () => {
         <div className="main">
           <Routes>
             <Route path="*" element={<NoPageFound />} />
-            <Route path="/" element={<Home username={"javeed"} />} />
+            <Route path="/" element={<Home />} />
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/shop" element={<Shop />} />
             <Route path="/posts" element={<Posts/>} />    
-            <Route path="/posts/:postId" element={<SinglePost/>} />   
+            <Route path="/posts/:postId" element={<SinglePost/>} />  
+
+            <Route path="/product/:productId" element={<ProductDetails/>} /> 
+
+
+
+
+
+
+
             <Route path="/jobs" element={<JobsSearch/>} />   
 
 

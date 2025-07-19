@@ -1,17 +1,22 @@
-import React from 'react'
+import React from "react";
+import Hero from "../molecules/Hero";
+import Categories from "../molecules/Categories";
+import FeaturedProduct from "../molecules/FeaturedProduct";
+import Banner from "../molecules/Banner";
 
 const Home = (props) => {
-
-
-    
   return (
-    <div className='home_container'>
+    <>
+      <Hero />
 
-    <h1> Welcome  {props.username} </h1>
+      <Categories />
 
+      <FeaturedProduct />
 
-    </div>
-  )
-}
+      <Banner />
+          
+    </>
+  );
+};
 
-export default Home
+export default Home;
