@@ -5,6 +5,8 @@ const Hero = () => {
      <section className="hero">
         <div className="container">
             <div className="row">
+
+                
                 <div className="col-lg-3">
                     <div className="hero__categories">
                         <div className="hero__categories__all">
@@ -26,6 +28,10 @@ const Hero = () => {
                         </ul>
                     </div>
                 </div>
+
+
+
+
                 <div className="col-lg-9">
                     <div className="hero__search">
                         <div className="hero__search__form">
@@ -43,7 +49,7 @@ const Hero = () => {
                                 <i className="fa fa-phone"></i>
                             </div>
                             <div className="hero__search__phone__text">
-                                <h5>+65 11.188.888</h5>
+                                <h5>+91 9906520959</h5>
                                 <span>support 24/7 time</span>
                             </div>
                         </div>

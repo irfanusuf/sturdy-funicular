@@ -1,6 +1,10 @@
 import ReactDOM from "react-dom/client";
 import App from "./App";
-import "./global.css";
+import "./css/global.css";
+
+//  import "./css/font-awesome.min.css"
+//  import "./css/elegant-icons.css"
+import "./css/style.css"
 
 
 
