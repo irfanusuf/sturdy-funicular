@@ -11,7 +11,7 @@ router.post("/login", controller.login); // done
 router.get("/forgot/Password", controller.forgotPass); // pending
 router.post("/change/password", controller.changePass); // pending
 router.post("/edit/user", authorize, controller.changeUsername); // pending
-router.get("/verify" ,  authorize, controller.verify )     // isAuthorised // done  // verifyToken
-
+router.get("/verify" ,  authorize, controller.verifyUser )     // isAuthorised // done  // verifyToken
+router.get("/verify/admin" ,  authorize, controller.verifyAdmin ) 
 
 module.exports = router

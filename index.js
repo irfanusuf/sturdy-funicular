@@ -24,7 +24,10 @@ connectDb()
 // app.use(bodyParser.urlencoded({extended :true}))
 
 app.use(bodyParser.json())  // post configure 
-app.use(cors())     // cors policy unblocked
+app.use(cors({
+    credentials :true,
+    origin :true
+}))     // cors policy unblocked
 app.use(cookieParser())
 
 

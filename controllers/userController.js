@@ -92,7 +92,7 @@ exports.login = async (req, res) => {
 
       return res
         .status(200)
-        .json({ message: "Login in succesfull!" });
+        .json({ message: "Login in succesfull!" , payload : existingUser });
         
     } else {
       return res.status(400).json({ message: "Password incorrect!" });
@@ -206,16 +206,34 @@ try {
 
 }
 
-exports.verify =  async (req,res) =>{
+exports.verifyUser =  async (req,res) =>{
   try {
     const userId = req.userId
 
     const user = await User.findById(userId)
 
     if(user){
-      res.status(200).json({message : "User Verified SuccesFully!" , user})
+      res.status(200).json({message : "User Verified SuccesFully!" , payload :user})
     }else{
       res.status (400).json({message : "User not Found!"})
+    }
+    
+  } catch (error) {
+    console.error(error)
+  }
+}
+
+
+exports.verifyAdmin =  async (req,res) =>{
+  try {
+    const userId = req.userId
+
+    const user = await User.findById(userId)
+
+    if(user.isAdmin === true){
+      res.status(200).json({message : "Admin Verified SuccesFully!" , payload :user})
+    }else{
+      res.status (401).json({message : "Only admin has access to view this page"})
     }
     
   } catch (error) {
