@@ -54,6 +54,9 @@ const Categories = () => {
               </div>
             </SwiperSlide>
           ))}
+
+
+          
         </Swiper>
       </div>
     </section>

@@ -15,6 +15,10 @@ const Home = (props) => {
 
       <Banner />
           
+
+          <div className="mb-3">
+
+          </div>
     </>
   );
 };

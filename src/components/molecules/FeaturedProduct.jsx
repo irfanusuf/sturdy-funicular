@@ -25,6 +25,9 @@ const FeaturedProduct = () => {
                     </div>
                 </div>
             </div>
+
+
+
             <div className="row featured__filter">
                  {featuredProductsArr.map(product => <div key={product.id} className="col-lg-3 col-md-4 col-sm-6 mix oranges fresh-meat">
                     <div className="featured__item">
@@ -42,6 +45,9 @@ const FeaturedProduct = () => {
                     </div>
                 </div> )}
             </div>
+
+
+            
         </div>
     </section>
   )

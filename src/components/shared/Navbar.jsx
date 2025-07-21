@@ -97,6 +97,8 @@ const Navbar = () => {
 
 
             <header className="header">
+
+
                 <div className="header__top">
                     <div className="container">
                         <div className="row">
@@ -140,6 +142,7 @@ const Navbar = () => {
 
 
                 <div className="container">
+
                     <div className="row">
 
                         <div className="col-lg-3">

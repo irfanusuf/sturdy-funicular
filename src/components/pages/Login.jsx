@@ -8,7 +8,7 @@ import { axiosInstance } from "../../utils/axiosInstance";
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [loading , setloading] = useState(false)
+  const [loading, setloading] = useState(false)
 
   const navigate = useNavigate();
 
@@ -21,9 +21,9 @@ const Login = () => {
     try {
       event.preventDefault();
       setloading(true)
-      
 
-     
+
+
       const res = await axiosInstance.post("/user/login", formBody); // network api call
 
       if (res.status === 200) {
@@ -31,29 +31,36 @@ const Login = () => {
 
 
         // obsolete
-        
+
         // localStorage.setItem(
         //   "Authorization Token",
         //   res.data.authorization_token
         // );
 
         setTimeout(() => {
-          navigate("/user/dashboard");
+
+          if (res.data.payload.isAdmin) {
+            navigate("/admin/dashboard")
+          } else {
+            navigate("/user/dashboard");
+          }
+
+
         }, 2000);
       }
     } catch (error) {
       if (error.response) {
         if ([400, 401, 403, 500].includes(error.response.status)) {
           toast.error(error.response.data.message);
-        } 
-      }else {
+        }
+      } else {
         toast.error("Network Error!");
       }
-    }finally{
+    } finally {
       setTimeout(() => {
         setloading(false)
       }, 3000);
-      
+
     }
   };
 
@@ -79,7 +86,7 @@ const Login = () => {
 
         <div className="mb-3">
           <label className="mb-2">
-  
+
             password <span className="text-danger">*</span>
           </label>
           <input
@@ -94,7 +101,7 @@ const Login = () => {
         </div>
 
         <p>
-   
+
           If u are not registered Go to the
           <Link to={"/register"}> Register </Link>
         </p>
@@ -104,9 +111,9 @@ const Login = () => {
           onClick={(event) => {
             handleLogin(event);
           }}
-          disabled = {loading}
+          disabled={loading}
         >
-          {loading ? "Loading...."  : "Login"}
+          {loading ? "Loading...." : "Login"}
         </button>
       </form>
     </div>

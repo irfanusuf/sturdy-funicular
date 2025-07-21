@@ -12,6 +12,9 @@ const Hero = () => {
                         <div className="hero__categories__all">
                             <i className="fa fa-bars"></i>
                             <span>All departments</span>
+
+                            <span className='ms-3'>  <i class="fa fa-caret-down"></i> </span> 
+
                         </div>
                         <ul>
                             <li><a href="#">Fresh Meat</a></li>
@@ -38,8 +41,9 @@ const Hero = () => {
                             <form action="#">
                                 <div className="hero__search__categories">
                                     All Categories
-                                    <span className="arrow_carrot-down"></span>
+                                   <span className='ms-3'> <i class="fa fa-caret-down"></i>  </span>  
                                 </div>
+
                                 <input type="text" placeholder="What do yo u need?"/>
                                 <button type="submit" className="site-btn">SEARCH</button>
                             </form>

@@ -12,11 +12,13 @@ import Login from "./components/pages/Login";
 import Register from "./components/pages/Register";
 import { ToastContainer } from "react-toastify";
 import Dashboard from "./components/pages/Dashboard";
-import IsAuthorised from "./components/shared/IsAuthorised";
+import IsAuthorised from "./components/Auth/IsAuthorised";
 import Posts from "./components/pages/Posts";
 import SinglePost from "./components/pages/SinglePost";
 import JobsSearch from "./components/pages/JobsSearch";
 import ProductDetails from "./components/pages/ProductDetails";
+import IsAdminAuth from "./components/Auth/IsAdminAuth";
+import UserDashboard from "./components/pages/UserDashboard";
 
 
 const App = () => {
@@ -24,6 +26,8 @@ const App = () => {
     // jsx fragment
     <>
       <BrowserRouter>
+
+
         <ToastContainer
           position="top-left"
           autoClose={3000}
@@ -49,25 +53,15 @@ const App = () => {
             <Route path="/shop" element={<Shop />} />
             <Route path="/posts" element={<Posts/>} />    
             <Route path="/posts/:postId" element={<SinglePost/>} />  
-
             <Route path="/product/:productId" element={<ProductDetails/>} /> 
-
-
-
-
-
-
-
             <Route path="/jobs" element={<JobsSearch/>} />   
-
-
-            
             <Route path="/services" element={ <IsAuthorised>    <Services/>  </IsAuthorised>} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
-            <Route path="/user/dashboard" element={<IsAuthorised> <Dashboard /></IsAuthorised> }/>
+            <Route path="/user/dashboard" element={<IsAuthorised> <UserDashboard /></IsAuthorised> }/>
+            <Route path="/admin/dashboard" element={<IsAdminAuth> <Dashboard /></IsAdminAuth> }/>
 
-      </Routes>
+           </Routes>
         </div>
 
         <Footer />
