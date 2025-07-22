@@ -108,7 +108,7 @@ exports.archive_UnArchiveProduct = async (req, res) => {
       product.isArchived = false;
       await product.save();
 
-      return resHandler(res, 400, "Product Unarchived!", product);
+      return resHandler(res, 200, "Product Unarchived!", product);
     }
   } catch (error) {
     console.error(error);
