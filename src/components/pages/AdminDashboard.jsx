@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import UploadPost from "../molecules/UploadPost";
 import UploadProduct from "../molecules/UploadProduct";
+import ProductList from "../molecules/ProductList";
 
-const Dashboard = () => {
+const AdminDashboard = () => {
   // conditional rendering
 
   const [showPostForm, setShowPostForm] = useState(false);
@@ -41,9 +42,14 @@ const Dashboard = () => {
         {showProductForm === true  && <UploadProduct/>}
 
 
+
+        {!showProductForm && !showPostForm   && <ProductList/> }
+
+
+
       </div>
     </div>
   );
 };
 
-export default Dashboard;
+export default AdminDashboard;

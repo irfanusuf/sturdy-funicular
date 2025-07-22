@@ -11,7 +11,6 @@ import Services from "./components/pages/Services";
 import Login from "./components/pages/Login";
 import Register from "./components/pages/Register";
 import { ToastContainer } from "react-toastify";
-import Dashboard from "./components/pages/Dashboard";
 import IsAuthorised from "./components/Auth/IsAuthorised";
 import Posts from "./components/pages/Posts";
 import SinglePost from "./components/pages/SinglePost";
@@ -19,6 +18,7 @@ import JobsSearch from "./components/pages/JobsSearch";
 import ProductDetails from "./components/pages/ProductDetails";
 import IsAdminAuth from "./components/Auth/IsAdminAuth";
 import UserDashboard from "./components/pages/UserDashboard";
+import AdminDashboard from "./components/pages/AdminDashboard";
 
 
 const App = () => {
@@ -59,7 +59,7 @@ const App = () => {
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/user/dashboard" element={<IsAuthorised> <UserDashboard /></IsAuthorised> }/>
-            <Route path="/admin/dashboard" element={<IsAdminAuth> <Dashboard /></IsAdminAuth> }/>
+            <Route path="/admin/dashboard" element={<IsAdminAuth> <AdminDashboard /></IsAdminAuth> }/>
 
            </Routes>
         </div>
