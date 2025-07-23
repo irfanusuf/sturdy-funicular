@@ -4,7 +4,7 @@ const { resHandler } = require("../utilities/resHandler");
 
 exports.addProduct = async (req, res) => {
   try {
-    const { name, description, price, discount, colors, sizes } = req.body;
+    const { name, description, price, discount, colors, sizes , image } = req.body;
 
     // here i kept colors and sizes as comma seperated string which will gets seperated and converted to array
 
@@ -19,8 +19,8 @@ exports.addProduct = async (req, res) => {
       return resHandler(res, 400, "Missing required product fields");
     }
 
-    if (req.file?.path) {
-      const image = req.file.path;
+    if (image !== "") {
+      // const image = req.file.path;
       upload = await cloudinary.uploader.upload(image);
       imageUrl = upload.secure_url;
       if (!upload) {
@@ -116,7 +116,7 @@ exports.archive_UnArchiveProduct = async (req, res) => {
   }
 };
 
-exports.isAvailOrNot = async (req, res) => {
+exports.isAvailOrNot = async (req, res) => {  
   try {
     const { productId } = req.params;
 
