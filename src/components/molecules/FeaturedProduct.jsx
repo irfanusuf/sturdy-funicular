@@ -39,7 +39,7 @@ const FeaturedProduct = () => {
                             </ul>
                         </div>
                         <div className="featured__item__text">
-                            <h6><Link to={`/product/${product.id}`}> {product.name}</Link></h6>
+                            <h6><Link > {product.name}</Link></h6>
                             <h5>Rs {product.price}</h5>
                         </div>
                     </div>
