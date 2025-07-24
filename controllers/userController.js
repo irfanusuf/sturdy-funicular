@@ -82,7 +82,7 @@ exports.login = async (req, res) => {
       const token = await jwt.sign(
         { userId: existingUser._id, username: existingUser.username },
         secretKey,
-        {expiresIn : "24h"}
+        {expiresIn : "168h"}
       );
 
         res.cookie("token" , token , {

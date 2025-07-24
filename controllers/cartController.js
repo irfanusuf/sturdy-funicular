@@ -6,8 +6,8 @@ const { resHandler } = require("../utilities/resHandler");
 exports.addToCart = async (req, res) => {
   try {
     const userId = req.userId;
-    const { productId } = req.query;
 
+    const { productId } = req.params;
     const { quantity } = req.body;
     //
 
@@ -67,7 +67,7 @@ exports.addToCart = async (req, res) => {
 exports.removeFromCart = async (req, res) => {
   try {
     const userId = req.userId;
-    const { productId } = req.query;
+    const { productId } = req.params;
 
     if (!userId || !productId) {
       return resHandler(res, 400, "No params Found!");
@@ -102,13 +102,30 @@ exports.removeFromCart = async (req, res) => {
     await cart.save();
 
     return resHandler(res, 200, "Product removed!", cart);
-
-
   } catch (error) {
     console.error(error);
     return resHandler(res, 500, "Server Error!");
   }
 };
 
+exports.getCart = async (req, res) => {
+  try {
+    const userId = req.userId;
 
+    if (!userId) {
+      return resHandler(res, 400, "No params Found!");
+    }
 
+    let user = await User.findById(userId);
+    let cart = await Cart.findById(user.cartId).populate('products.productId');
+
+    if (cart) {
+      return resHandler(res, 200, "User's Cart Found", cart);
+    } else {
+      return resHandler(res, 404, "Cart Empty!");
+    }
+  } catch (error) {
+    console.error(error);
+    return resHandler(res, 500, "Server Error!");
+  }
+};
