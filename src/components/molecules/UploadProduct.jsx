@@ -175,7 +175,6 @@ Object.entries(formBody).forEach(([key, value]) => {
         </div>
 
 
-
         <div className="col-lg-3">
            <img src={image} alt="Product-img"/>
         </div>

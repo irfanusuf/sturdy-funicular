@@ -19,6 +19,7 @@ import ProductDetails from "./components/pages/ProductDetails";
 import IsAdminAuth from "./components/Auth/IsAdminAuth";
 import UserDashboard from "./components/pages/UserDashboard";
 import AdminDashboard from "./components/pages/AdminDashboard";
+import Cart from "./components/pages/Cart";
 
 
 const App = () => {
@@ -58,7 +59,10 @@ const App = () => {
             <Route path="/services" element={ <IsAuthorised>    <Services/>  </IsAuthorised>} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
+
+            <Route path="/user/cart" element={<IsAuthorised> <Cart /></IsAuthorised> }/>
             <Route path="/user/dashboard" element={<IsAuthorised> <UserDashboard /></IsAuthorised> }/>
+
             <Route path="/admin/dashboard" element={<IsAdminAuth> <AdminDashboard /></IsAdminAuth> }/>
 
            </Routes>

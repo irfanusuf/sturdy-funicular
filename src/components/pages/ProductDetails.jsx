@@ -2,43 +2,48 @@ import React, { useEffect, useState } from 'react'
 import { featuredProductsArr } from '../../data/featuredProductsArr'
 import { useParams } from 'react-router-dom'
 import { axiosInstance } from '../../utils/axiosInstance'
+import { toast } from 'react-toastify'
 
 const ProductDetails = () => {
 
     const { productId } = useParams()
 
-
+    const [quantity , setQuantity] = useState(1)
     const [product, setProduct] = useState({})
-
 
 
     const fetchProduct = async () => {
         try {
-
             const res = await axiosInstance.get(`/product/get/${productId}`)
-
-
             if (res.status === 200) {
-
                 setProduct(res.data.payload)
             }
-
-
-
         } catch (error) {
             console.error(error)
         }
+    }
 
+   
 
-
+   const handleCart = async (productId) => {
+        try {
+            const res = await axiosInstance.post(`/cart/addtoCart/${productId}` , {quantity} )
+            if (res.status === 200) {
+              toast.success(res.data.message)
+            }
+        } catch (error) {
+            console.error(error)
+        }
     }
 
 
+   
+
+
+
+
     useEffect(() => {
-
         fetchProduct()
-
-
     }, []);
 
 
@@ -61,7 +66,6 @@ const ProductDetails = () => {
                                     <img className="product__details__pic__item--large"
                                         src={product.image} alt="" />
                                 </div>
-
 
 
                                 <div className="product__details__pic__slider owl-carousel">
@@ -97,18 +101,27 @@ const ProductDetails = () => {
 
                                 <p>{product && product.description}</p>
                                 <div className="product__details__quantity">
+
                                     <div className="quantity">
                                         <div className="pro-qty">
-                                            <input type="text" value="1" />
+                                            <input type="number" value={quantity} onChange={(e)=>{setQuantity(e.target.value)}} />
                                         </div>
                                     </div>
                                 </div>
-                                <a href="#" className="primary-btn">ADD TO CART</a>
+
+                                <span className="primary-btn" onClick={()=>{handleCart(productId)}} >ADD TO CART</span>
+
                                 <a href="#" className="heart-icon"><span className="icon_heart_alt"></span></a>
                                 <ul>
-                                    <li><b>Availability</b> <span>In Stock</span></li>
+
+                                    <li><b>Availability</b>  {product.isAvailable ?  <span className='text-success'> In Stock </span>: <span className='text-danger'>Currently Unavailable</span>} </li>
+
+
                                     <li><b>Shipping</b> <span>01 day shipping. <samp>Free pickup today</samp></span></li>
-                                    <li><b>Weight</b> <span>0.5 kg</span></li>
+
+                                    <li><b>Weight</b> <span> {product && product.sizes && product.sizes[0]}</span></li>
+
+
                                     <li><b>Share on</b>
                                         <div className="share">
                                             <a href="#"><i className="fa fa-facebook"></i></a>
