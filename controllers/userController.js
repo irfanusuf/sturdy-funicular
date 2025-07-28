@@ -85,10 +85,12 @@ exports.login = async (req, res) => {
         {expiresIn : "168h"}
       );
 
-        res.cookie("token" , token , {
-          maxAge : 60*60*24*7*1000,
-          httpOnly : true
-        })
+        res.cookie("token", token, {
+          maxAge: 60 * 60 * 24 * 7 * 1000, // 7 days
+          httpOnly: true,
+          secure: true, // only send cookie over HTTPS in production
+          sameSite: "strict", // prevent CSRF in production
+        });
 
       return res
         .status(200)
