@@ -5,12 +5,16 @@ require("dotenv").config();
 const authorize = async (req, res, next) => {
     try {
       const { token } = req.cookies;   // older method  was req.query
+
+          console.log(token)
   
       if (!token || token === "" || token === null || token === undefined) {
         return res
           .status(401)
           .json({ message: "Unauthorised | Token not Found!" });
       }
+
+  
       const secretKey = process.env.SECRET_KEY;
   
       const verify = await jwt.verify(token, secretKey);
