@@ -8,10 +8,10 @@ const router = express.Router();
 
 router.post("/register", controller.register); // done
 router.post("/login", controller.login); // done
-router.get("/forgot/Password", controller.forgotPass); // pending
-router.post("/change/password", controller.changePass); // pending
-router.post("/edit/user", authorize, controller.changeUsername); // pending
+router.get("/forgot/Password", controller.forgotPass); 
+router.post("/change/password", controller.changePass); 
+router.post("/edit/user", authorize, controller.changeUsername);
 router.get("/verify" ,  authorize, controller.verifyUser )     // isAuthorised // done  // verifyToken
-router.get("/verify/admin" ,  authorize, controller.verifyAdmin ) 
+router.get("/verify/admin" ,  authorize, controller.verifyAdmin )   // done 
 
 module.exports = router

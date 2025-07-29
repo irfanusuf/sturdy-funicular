@@ -6,7 +6,7 @@ const authorize = async (req, res, next) => {
     try {
       const { token } = req.cookies;   // older method  was req.query
 
-          console.log(token)
+          // console.log(token)
   
       if (!token || token === "" || token === null || token === undefined) {
         return res

@@ -10,9 +10,9 @@ const router = express.Router();
 
 
 
-router.post("/addtoCart/:productId" , authorize , controller.addToCart)
-router.get("/removeFromCart/:productId" , authorize , controller.removeFromCart)
-router.get("/getCart" , authorize , controller.getCart)
+router.post("/addtoCart/:productId" , authorize , controller.addToCart)    // done 
+router.get("/removeFromCart/:productId" , authorize , controller.removeFromCart)    // done 
+router.get("/getCart" , authorize , controller.getCart)   // done 
 
 
 

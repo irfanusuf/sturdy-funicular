@@ -14,7 +14,7 @@ const addressSchema = new mongoose.Schema(
     state : {type :String},
     pincode : {type:String},
     country : {type :String},
-    email: { type: String},
+    email: { type: String , unique : false},
     mobile: { type: String },
     userId: {type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
 

@@ -135,7 +135,9 @@ exports.removeAddress = async (req, res) => {
 
 exports.getAllAddresses = async (req, res) => {
   try {
-    const addresses = await Address.find();
+
+    const userId = req.userId
+    const addresses = await Address.find({userId : userId});
 
     if (addresses.length > 0) {
       resHandler(res, 200, `${addresses.length} addresses Found!`, addresses);

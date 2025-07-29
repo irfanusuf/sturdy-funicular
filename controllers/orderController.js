@@ -18,13 +18,15 @@ exports.createOrder = async (req, res) => {
       return resHandler(res, 400, "Qty Feild is necessary ");
     }
 
+       if (!productId || !addressId || !userId) {
+      return resHandler(res, 400, "Some query Params are missing!");
+    }
+
+
+
     let user = await User.findById(userId);
 
     const product = await Product.findById(productId);
-
-    if (!user || !product) {
-      return resHandler(res, 404, "Some query Params are missing!");
-    }
 
     const orderProduct = { productId, quantity };
 
@@ -65,7 +67,7 @@ exports.createCartorder = async (req, res) => {
     const { cartId , addressId } = req.query;
 
 
-    if (!cartId || !addressId) {
+    if (!cartId || !addressId || !userId) {
       return resHandler(res, 400, "No params Found!");
     }
 

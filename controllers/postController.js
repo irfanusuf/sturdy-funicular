@@ -4,7 +4,7 @@ const cloudinary = require("../utilities/cloudinary");
 exports.addPost = async (req, res) => {
   try {
     // logic for authorisation   // it should be in dedicated middle ware
-
+      const userId =  req.userId
     const { postTitle, postDesc, shortDesc, image } = req.body;
 
     // let image = req.body.image
@@ -30,6 +30,7 @@ exports.addPost = async (req, res) => {
       postDesc,
       shortDesc,
       postImgUrl: secureUrl,
+      postAuthorId : userId
     });
 
     if (newPost) {
