@@ -1,25 +1,26 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import loadingGIF from "../../assets/loading.gif";
 import { axiosInstance } from "../../utils/axiosInstance";
 
-const IsAuthorised = ({ children }) => {
+const IsAuthorised = ({ children , role }  ) => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
+  const [username , setUsername] = useState ("irfan ")
 
   useEffect(() => {
     (async () => {
       try {
         setLoading(true);
 
-        const res = await axiosInstance.get("/user/verify"); //backend  api call  for verification
+        const res = await axiosInstance.get(`/user/verify/${role}`); //backend  api call  for verification
 
         if (res.status === 200) {
           setTimeout(() => {
             localStorage.setItem("username", res.data.payload.username);
             setLoading(false);
-          }, 3000);
+          }, 2000);
         }
       } catch (error) {
         setLoading(true);
@@ -35,10 +36,15 @@ const IsAuthorised = ({ children }) => {
 
         setTimeout(() => {
           navigate("/login");
-        }, 3000);
+        }, 2000);
       }
     })();
   }, [navigate]);
+
+// console.log("Children type:", typeof children);       // should be object
+// console.log("Is valid element:", React.isValidElement(children)); // should be true
+// console.log("children content:", children);
+
 
   if (loading) {
     return (
@@ -47,7 +53,10 @@ const IsAuthorised = ({ children }) => {
       </div>
     );
   } else {
-    return children;
+     // clone child with new props
+     return React.isValidElement(children)
+    ? React.cloneElement(children, { username })
+    : children;
   }
 };
 

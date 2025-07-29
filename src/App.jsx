@@ -1,4 +1,4 @@
-import React from "react";
+
 import Navbar from "./components/shared/Navbar";
 import Footer from "./components/shared/Footer";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
@@ -16,10 +16,10 @@ import Posts from "./components/pages/Posts";
 import SinglePost from "./components/pages/SinglePost";
 import JobsSearch from "./components/pages/JobsSearch";
 import ProductDetails from "./components/pages/ProductDetails";
-import IsAdminAuth from "./components/Auth/IsAdminAuth";
 import UserDashboard from "./components/pages/UserDashboard";
 import AdminDashboard from "./components/pages/AdminDashboard";
 import Cart from "./components/pages/Cart";
+import Address from "./components/pages/Address";
 
 
 const App = () => {
@@ -60,10 +60,15 @@ const App = () => {
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
 
-            <Route path="/user/cart" element={<IsAuthorised> <Cart /></IsAuthorised> }/>
-            <Route path="/user/dashboard" element={<IsAuthorised> <UserDashboard /></IsAuthorised> }/>
+            <Route path="/user/cart" element={<IsAuthorised role={"user"}><Cart/></IsAuthorised> }/>
 
-            <Route path="/admin/dashboard" element={<IsAdminAuth> <AdminDashboard /></IsAdminAuth> }/>
+             <Route path="/user/add/address" element={<IsAuthorised role={"user"}><Address/></IsAuthorised> }/>
+
+
+            <Route path="/user/dashboard" element={<IsAuthorised role={"user"}><UserDashboard/></IsAuthorised> }/>
+
+
+            <Route path="/admin/dashboard" element={<IsAuthorised role = {"admin"}><AdminDashboard/></IsAuthorised> }/>
 
            </Routes>
         </div>

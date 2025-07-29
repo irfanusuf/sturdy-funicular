@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { axiosInstance } from '../../utils/axiosInstance'
 import { MdDelete } from "react-icons/md";
 import { toast } from 'react-toastify';
+import { Link } from 'react-router-dom';
 
 
 const Cart = () => {
@@ -127,7 +128,8 @@ const Cart = () => {
                                 <li>Subtotal <span> Rs {cart.cartValue}</span></li>
                                 <li>Total <span> Rs {cart.cartValue}</span></li>
                             </ul>
-                            <a href="#" class="primary-btn">PROCEED TO CHECKOUT</a>
+
+                            <Link to="/user/add/address" class="primary-btn"> PROCEED TO CHECKOUT </Link>
                         </div>
                     </div>
                 </div>
