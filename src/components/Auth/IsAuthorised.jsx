@@ -39,7 +39,7 @@ const IsAuthorised = ({ children , role }  ) => {
         }, 2000);
       }
     })();
-  }, [navigate]);
+  }, [navigate , role]);
 
 // console.log("Children type:", typeof children);       // should be object
 // console.log("Is valid element:", React.isValidElement(children)); // should be true

@@ -67,7 +67,7 @@ const Cart = () => {
                                 </thead>
                                 <tbody>
                                     {
-                                        cart && cart.products && cart.products.map(
+                                       cart && cart.products &&  cart.products.length > 0 ? cart.products.map(
 
                                             (product) => <tr>
                                                 <td class="shoping__cart__item">
@@ -93,7 +93,7 @@ const Cart = () => {
                                                   }}/>
                                                 </td>
                                             </tr>
-                                        )
+                                        ) : <div> Cart is Empty </div>
                                     }
 
 
@@ -102,14 +102,20 @@ const Cart = () => {
                         </div>
                     </div>
                 </div>
+
+
+
+
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="shoping__cart__btns">
-                            <a href="#" class="primary-btn cart-btn">CONTINUE SHOPPING</a>
-                            <a href="#" class="primary-btn cart-btn cart-btn-right"><span class="icon_loading"></span>
-                                Upadate Cart</a>
+                            <Link to="/shop" class="primary-btn cart-btn">CONTINUE SHOPPING</Link>
+                            {/* <a href="#" class="primary-btn cart-btn cart-btn-right"><span class="icon_loading"></span>
+                                Upadate Cart</a> */}
                         </div>
                     </div>
+
+
                     <div class="col-lg-6">
                         <div class="shoping__continue">
                             <div class="shoping__discount">
@@ -121,7 +127,9 @@ const Cart = () => {
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-6">
+
+
+                 {cart && cart.products && cart.products.length >0 &&  <div class="col-lg-6">
                         <div class="shoping__checkout">
                             <h5>Cart Total</h5>
                             <ul>
@@ -129,9 +137,11 @@ const Cart = () => {
                                 <li>Total <span> Rs {cart.cartValue}</span></li>
                             </ul>
 
-                            <Link to="/user/add/address" class="primary-btn"> PROCEED TO CHECKOUT </Link>
+                            <Link to="/user/add/address" class="primary-btn" > PROCEED TO CHECKOUT </Link>
                         </div>
-                    </div>
+                    </div>}
+
+
                 </div>
             </div>
         </section>

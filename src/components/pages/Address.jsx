@@ -1,7 +1,8 @@
-import axios from 'axios';
-import React, { useEffect, useState } from 'react'
+
+import  { useEffect, useState } from 'react'
 import { axiosInstance } from '../../utils/axiosInstance';
 import { toast } from 'react-toastify';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Address = () => {
 
@@ -9,6 +10,7 @@ const Address = () => {
     const [addressArr , setAddressArr] = useState([])
     const [cart, setCart] = useState({})
     const [formData, setFormData] = useState({
+        _id  : "",
       firstName : "",
       lastName : "",
       street : "",
@@ -20,6 +22,9 @@ const Address = () => {
       email: "",
       mobile : "",
     });
+
+
+    const navigate = useNavigate()
 
   
      const handleInputChange = (e) => {
@@ -54,6 +59,7 @@ const Address = () => {
         const res = await axiosInstance.get("/address/getAllAddresses");
         if(res.status === 200 ){
             setAddressArr(res.data.payload)
+
             setFormData(res.data.payload[0])
         }
             
@@ -77,6 +83,24 @@ const Address = () => {
     }
 
 
+    const handleCreateCartOrder = async () =>{
+
+        try {
+            const res = await axiosInstance.post(`/order/createCartOrder?cartId=${cart._id}&addressId=${formData._id}`)
+            if(res.status === 201){
+                toast.success(res.data.message)
+                setTimeout(() => {
+                    navigate("/shop")
+                }, 1000);
+            }
+
+
+            
+        } catch (error) {
+            console.error(error)
+        }
+    }
+ 
 
         useEffect(()=>{
             fetchAddress()
@@ -95,7 +119,7 @@ const Address = () => {
         <div className="container">
             <div className="row">
                 <div className="col-lg-12">
-                    <h6><span className="icon_tag_alt"></span> Have a coupon? <a href="#">Click here</a> to enter your code
+                    <h6><span className="icon_tag_alt"></span> Have a coupon? <Link>Click here</Link> to enter your code
                     </h6>
                 </div>
             </div>
@@ -217,39 +241,42 @@ const Address = () => {
 
                         <div className="col-lg-4 col-md-6">
                             <div className="checkout__order">
-                                <h4>Your Order</h4>
+                                <h4>Your Cart</h4>
                                 <div className="checkout__order__products">Products <span>Total</span></div>
+
                                 <ul>
-                                    <li>Vegetable’s Package <span>$75.99</span></li>
-                                    <li>Fresh Vegetable <span>$151.99</span></li>
-                                    <li>Organic Bananas <span>$53.99</span></li>
+
+                                    {cart.products && cart.products.map((product) =>  <li>{product.productId.name}<span>Rs {product.productId.price}</span></li> )}
+                                
+                                
                                 </ul>
-                                <div className="checkout__order__subtotal">Subtotal <span>$750.99</span></div>
-                                <div className="checkout__order__total">Total <span>$750.99</span></div>
+
+
+                                <div className="checkout__order__subtotal">Subtotal <span> Rs {cart.cartValue}</span></div>
+                                <div className="checkout__order__total">Total <span> Rs {cart.cartValue}</span></div>
+
+
+                                
+                              
                                 <div className="checkout__input__checkbox">
-                                    <label for="acc-or">
-                                        Create an account?
-                                        <input type="checkbox" id="acc-or"/>
+                                    <label for="cod">
+                                        Cash On delivery
+                                        <input type="checkbox" id="cod"/>
                                         <span className="checkmark"></span>
                                     </label>
                                 </div>
-                                <p>Lorem ipsum dolor sit amet, consectetur adip elit, sed do eiusmod tempor incididunt
-                                    ut labore et dolore magna aliqua.</p>
+
+
                                 <div className="checkout__input__checkbox">
-                                    <label for="payment">
-                                        Check Payment
-                                        <input type="checkbox" id="payment"/>
+                                    <label for="onlinePay">
+                                        Online Payment
+                                        <input type="checkbox" id="onlinePay"/>
                                         <span className="checkmark"></span>
                                     </label>
                                 </div>
-                                <div className="checkout__input__checkbox">
-                                    <label for="paypal">
-                                        Paypal
-                                        <input type="checkbox" id="paypal"/>
-                                        <span className="checkmark"></span>
-                                    </label>
-                                </div>
-                                <button type="submit" className="site-btn">PLACE ORDER</button>
+
+
+                                <button onClick={handleCreateCartOrder} type="button" className="site-btn">PLACE ORDER</button>
                             </div>
                         </div>
                     </div>
