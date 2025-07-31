@@ -4,7 +4,7 @@ const { Product } = require("../models/productModel");
 const { User } = require("../models/userModel");
 const { resHandler } = require("../utilities/resHandler");
 
-exports.createOrder = async (req, res) => {
+exports.createOrder = async (req, res) => {                                                    
   // create Order for single product
   try {
     const userId = req.userId; // token // logged in user's userId
@@ -64,7 +64,8 @@ exports.createOrder = async (req, res) => {
 exports.createCartorder = async (req, res) => {
   try {
     const userId = req.userId;
-    const { cartId , addressId } = req.query;
+
+    const { cartId , addressId } = req.query;     
 
 
     if (!cartId || !addressId || !userId) {
@@ -72,7 +73,9 @@ exports.createCartorder = async (req, res) => {
     }
 
     let cart = await Cart.findById(cartId);
+    
     let user = await User.findById(userId);
+
     if (!cart || cart.cartValue === 0) {
       return resHandler(res, 404, "Cart Empty!");
     }
@@ -89,7 +92,10 @@ exports.createCartorder = async (req, res) => {
 
     if (createOrder) {
       user.orders.push(createOrder._id);
+      cart.cartValue = 0
+      cart.products = []
       await user.save();
+      await cart.save();
       resHandler(res, 201, "Order Created", createOrder);
     }
   } catch (error) {
