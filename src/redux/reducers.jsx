@@ -9,22 +9,40 @@ const intialState = {
     cart: {},
     message: "",
     errorMessage: "",
-    loading: false
+    loading: false,
+    payload: {} || []
 };
 
 export const userReducer = createReducer(intialState, (builder) => {
+
+    builder.addCase("REQ_API", (state, action) => {
+        state.loading = true
+    });
+
+
+    builder.addCase("REQ_API_SUCCESS", (state, action) => {
+        state.loading = false
+        state.payload = action.payload
+    });
+
+
+    builder.addCase("REQ_API_FAILURE", (state, action) => {
+        state.loading = false
+        state.errorMessage = action.message 
+    });
+
+
+
     builder.addCase("GET_USER", (state, action) => {
         state.loading = true
-        state.username = "tehleem khan"
-        state.email = "email@example.com"
+        state.username = action.payload.username
+        state.email = action.payload.email
 
     });
 
 
-    builder.addCase("SOME_ERROR", (state, action) => {
-        state.loading = false
-        state.errorMessage = "network Error!"
-    })
-
+  
 
 });
+
+
