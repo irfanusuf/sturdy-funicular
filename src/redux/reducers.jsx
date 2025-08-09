@@ -1,8 +1,7 @@
 import { createReducer } from "@reduxjs/toolkit";
 
 const intialState = {
-    username: "",
-    email: "",
+    user : {},
     orders: [],
     posts: [],
     addresses: [],
@@ -10,7 +9,7 @@ const intialState = {
     message: "",
     errorMessage: "",
     loading: false,
-    payload: {} || []
+    products: []
 };
 
 export const userReducer = createReducer(intialState, (builder) => {
@@ -20,11 +19,32 @@ export const userReducer = createReducer(intialState, (builder) => {
     });
 
 
-    builder.addCase("REQ_API_SUCCESS", (state, action) => {
+    builder.addCase("USER_API_SUCCESS", (state, action) => {
         state.loading = false
-        state.payload = action.payload
+        state.user = action.payload
     });
 
+
+     builder.addCase("PRODUCT_API_SUCCESS", (state, action) => {
+        state.loading = false
+        state.products = action.payload
+    });
+
+
+      builder.addCase("CART_API_SUCCESS", (state, action) => {
+        state.loading = false
+        state.cart= action.payload
+        state.errorMessage = action.message
+    });
+
+    builder.addCase("CART_API_FAILURE", (state, action) => {
+        state.loading = false
+        state.errorMessage = action.message 
+    });
+
+
+
+   
 
     builder.addCase("REQ_API_FAILURE", (state, action) => {
         state.loading = false
@@ -32,13 +52,8 @@ export const userReducer = createReducer(intialState, (builder) => {
     });
 
 
-
-    builder.addCase("GET_USER", (state, action) => {
-        state.loading = true
-        state.username = action.payload.username
-        state.email = action.payload.email
-
-    });
+  
+   
 
 
   
